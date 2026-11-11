@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover">
+  <title>Business Types — MerchantPay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       PALETTE — Obsidian · Jade · Champagne (same as index.html)
+       ============================================================ */
+    :root,
+    [data-theme="dark"] {
+      --bg: #070b0d;
+      --bg-1: #0b1114;
+      --bg-2: #0f171b;
+      --bg-3: #131e23;
+      --hover: #18262c;
+      --line: #1d2f36;
+      --line-2: #294049;
+      --text: #eef5f6;
+      --text-2: #a9c1c7;
+      --text-3: #6f8a92;
+      --text-4: #4a626a;
+      --jade: #34e0c4;
+      --jade-2: #22c7ab;
+      --jade-soft: rgba(52, 224, 196, 0.12);
+      --jade-line: rgba(52, 224, 196, 0.28);
+      --champagne: #f2d0a4;
+      --champagne-soft: rgba(242, 208, 164, 0.12);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.55);
+      --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.65);
+      --header-bg: rgba(7, 11, 13, 0.72);
+      --glass: rgba(15, 23, 27, 0.6);
+      --glass-line: rgba(255, 255, 255, 0.06);
+      --grid: rgba(29, 47, 54, 0.6);
+      --glow: rgba(52, 224, 196, 0.2);
+            --hero-grad-a: #34e0c4;
+      --hero-grad-b: #f2d0a4;
+      --primary: var(--jade);
+      --ghost: var(--glass);
+      --featured: var(--champagne);
+      --solid: var(--bg-1);
+      --map-filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2);
+      --noise-opacity: 0.035;
+      --img-filter: none;
+    }
+
+    [data-theme="light"] {
+      --bg: #f4faf9;
+      --bg-1: #ffffff;
+      --bg-2: #ffffff;
+      --bg-3: #fbfdfd;
+      --hover: #e8f3f1;
+      --line: #d6e6e3;
+      --line-2: #b9d4cf;
+      --text: #061014;
+      --text-2: #2f4a51;
+      --text-3: #5c7880;
+      --text-4: #8ba6ac;
+      --jade: #0f9d8b;
+      --jade-2: #0b8575;
+      --jade-soft: rgba(15, 157, 139, 0.1);
+      --jade-line: rgba(15, 157, 139, 0.25);
+      --champagne: #b6792e;
+      --champagne-soft: rgba(182, 121, 46, 0.1);
+      --shadow-sm: 0 1px 2px rgba(6, 16, 20, 0.06);
+      --shadow-md: 0 12px 32px rgba(6, 16, 20, 0.1);
+      --shadow-lg: 0 30px 80px rgba(6, 16, 20, 0.14);
+      --header-bg: rgba(244, 250, 249, 0.75);
+      --glass: rgba(255, 255, 255, 0.65);
+      --glass-line: rgba(6, 16, 20, 0.06);
+      --grid: rgba(185, 212, 207, 0.55);
+      --glow: rgba(15, 157, 139, 0.12);
+            --hero-grad-a: #0f9d8b;
+      --hero-grad-b: #b6792e;
+      --primary: var(--jade);
+      --ghost: var(--glass);
+      --featured: var(--champagne);
+      --solid: var(--bg-1);
+      --map-filter: none;
+      --noise-opacity: 0.02;
+      --img-filter: none;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: var(--font-sans);
+      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 22px;
+      --r-xl: 32px;
+      --ease: 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      --container: 1300px;
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      transition: background-color 350ms ease, color 350ms ease;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: var(--noise-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      transition: opacity 350ms ease;
+    }
+
+    [dir="rtl"] body { text-align: right; }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
+
+    .skip-link {
+      position: absolute; top: -100px; left: 8px; padding: 10px 18px;
+      background: var(--jade); color: #03110e; border-radius: var(--r-sm);
+      font-size: 14px; font-weight: 700; z-index: 9999; transition: top 200ms;
+    }
+    .skip-link:focus { top: 8px; }
+
+    /* ============================================================
+       HEADER / NAVBAR (identical to index.html)
+       ============================================================ */
+    .merchant-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: var(--header-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--line);
+      transition: background-color 350ms ease, border-color 350ms ease;
+    }
+
+    .merchant-nav__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .brand-logo__mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      fill: var(--jade);
+      transition: fill var(--ease), transform var(--ease);
+    }
+
+    .brand-logo:hover .brand-logo__mark { transform: rotate(-8deg); }
+
+    .brand-logo__text-accent {
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--jade);
+    }
+
+    .merchant-nav__list {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 1px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .merchant-nav__item { position: relative; }
+
+    .merchant-nav__link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 9px 13px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: color var(--ease), background var(--ease);
+      line-height: 1.4;
+    }
+
+    /* Active navigation link styling */
+    .merchant-nav__link[aria-current="page"],
+    .merchant-nav__link.is-active,
+    .merchant-nav__mobile-link[aria-current="page"],
+    .merchant-nav__mobile-link.is-active,
+    .merchant-nav__mobile-trigger[aria-current="page"],
+    .merchant-nav__mobile-trigger.is-active {
+      color: var(--jade) !important;
+      font-weight: 600;
+    }
+
+    .merchant-nav__link[aria-current="page"] .merchant-nav__chevron,
+    .merchant-nav__link.is-active .merchant-nav__chevron,
+    .merchant-nav__mobile-trigger[aria-current="page"] svg,
+    .merchant-nav__mobile-trigger.is-active svg {
+      opacity: 1;
+      fill: var(--jade);
+    }
+
+    .merchant-nav__dropdown-link[aria-current="page"],
+    .merchant-nav__dropdown-link.is-active,
+    .merchant-nav__mobile-submenu a[aria-current="page"],
+    .merchant-nav__mobile-submenu a.is-active {
+      color: var(--jade) !important;
+      font-weight: 600;
+      background: var(--jade-soft);
+    }
+
+    .merchant-nav__link[aria-current="page"]:hover,
+    .merchant-nav__link.is-active:hover,
+    .merchant-nav__mobile-link[aria-current="page"]:hover,
+    .merchant-nav__mobile-link.is-active:hover,
+    .merchant-nav__mobile-trigger[aria-current="page"]:hover,
+    .merchant-nav__mobile-trigger.is-active:hover {
+      color: var(--jade) !important;
+    }
+
+    .merchant-nav__link:hover,
+    .merchant-nav__item--open > .merchant-nav__link {
+      color: var(--text);
+      background: var(--hover);
+    }
+
+    .merchant-nav__link:focus-visible,
+    .merchant-nav__action-link:focus-visible,
+    .merchant-nav__dropdown-link:focus-visible,
+    .merchant-nav__mobile-trigger:focus-visible,
+    .merchant-nav__mobile-link:focus-visible {
+      outline: 2px solid var(--jade);
+      outline-offset: 2px;
+    }
+
+    .merchant-nav__chevron {
+      width: 12px; height: 12px; flex-shrink: 0;
+      transition: transform var(--ease); opacity: 0.6; fill: currentColor;
+    }
+
+    .merchant-nav__item--open > .merchant-nav__link .merchant-nav__chevron {
+      transform: rotate(180deg); opacity: 1;
+    }
+
+    .merchant-nav__dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px) scale(0.98);
+      min-width: 230px;
+      background: var(--glass);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-line);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-lg);
+      padding: 7px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity var(--ease), transform var(--ease), visibility var(--ease);
+      z-index: 100;
+    }
+
+    [dir="rtl"] .merchant-nav__dropdown { transform: translateX(-50%) translateY(-8px) scale(0.98); }
+
+    .merchant-nav__item--open > .merchant-nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .merchant-nav__dropdown-link {
+      display: block;
+      padding: 11px 14px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 450;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color var(--ease), background var(--ease);
+      white-space: nowrap;
+    }
+
+    .merchant-nav__dropdown-link:hover {
+      color: var(--text);
+      background: var(--hover);
+    }
+
+    .merchant-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .merchant-nav__icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: var(--r-sm);
+      color: var(--text-2);
+      background: none;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: color var(--ease), background var(--ease), border-color var(--ease);
+      flex-shrink: 0;
+    }
+
+    .merchant-nav__icon-btn:hover {
+      color: var(--text);
+      background: var(--hover);
+      border-color: var(--line-2);
+    }
+
+    .merchant-nav__icon-btn svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor; stroke-width: 1.7;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .merchant-nav__icon-btn .icon-sun { display: none; }
+    [data-theme="light"] .merchant-nav__icon-btn .icon-sun { display: block; }
+    [data-theme="light"] .merchant-nav__icon-btn .icon-moon { display: none; }
+
+    .merchant-nav__rtl-label {
+      font-size: 12px; font-weight: 800; letter-spacing: 0.04em; font-family: var(--font-mono);
+    }
+
+    .merchant-nav__action-link {
+      display: flex;
+      align-items: center;
+      padding: 9px 20px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: color var(--ease), background var(--ease), border-color var(--ease), transform var(--ease);
+      white-space: nowrap;
+      line-height: 1.4;
+      border: 1px solid var(--line-2);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .merchant-nav__action-link:hover {
+      background: var(--jade);
+      color: #03110e;
+      border-color: var(--jade);
+      transform: translateY(-1px);
+    }
+
+    .merchant-nav__mobile-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      padding: 0;
+      border-radius: var(--r-sm);
+      color: var(--text-2);
+      background: none;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: background var(--ease), color var(--ease);
+      flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-toggle:hover { background: var(--hover); color: var(--text); }
+    .merchant-nav__mobile-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+    .merchant-nav__mobile-toggle .icon-close { display: none; }
+    .merchant-nav__mobile-toggle[aria-expanded="true"] .icon-menu { display: none; }
+    .merchant-nav__mobile-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+        .merchant-nav.merchant-nav--open {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: var(--bg) !important;
+    }
+
+    .merchant-nav__mobile-panel {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: calc(100vh - 72px);
+      height: calc(100dvh - 72px);
+      max-height: calc(100dvh - 72px);
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 24px clamp(20px, 4vw, 40px) 100px;
+      z-index: 9999;
+      flex-direction: column;
+      gap: 2px;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+    }
+
+    .merchant-nav__mobile-panel.is-open {
+      display: flex !important;
+    }
+
+    .merchant-nav__mobile-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    .merchant-nav__mobile-panel > * {
+      max-width: 680px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .merchant-nav__mobile-panel.is-open { display: flex; }
+
+    .merchant-nav__mobile-item { border-bottom: 1px solid var(--line); flex-shrink: 0; }
+    .merchant-nav__mobile-item:last-child { border-bottom: none; }
+
+    .merchant-nav__mobile-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 4px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: color var(--ease);
+      line-height: 1.4;
+    }
+
+    [dir="rtl"] .merchant-nav__mobile-trigger { text-align: right; }
+    .merchant-nav__mobile-trigger:hover { color: var(--jade); }
+
+    .merchant-nav__mobile-trigger svg {
+      width: 15px; height: 15px; fill: var(--text-3);
+      transition: transform var(--ease); flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-item--open .merchant-nav__mobile-trigger svg { transform: rotate(180deg); }
+
+    .merchant-nav__mobile-submenu {
+      display: none; flex-direction: column; padding: 0 0 14px 14px; gap: 0;
+    }
+
+    [dir="rtl"] .merchant-nav__mobile-submenu { padding: 0 14px 14px 0; }
+    .merchant-nav__mobile-item--open .merchant-nav__mobile-submenu { display: flex; }
+
+    .merchant-nav__mobile-submenu a {
+      display: block; padding: 11px 10px;
+      font-size: 15.5px; font-weight: 450;
+      color: var(--text-2); text-decoration: none;
+      border-radius: var(--r-sm);
+      transition: color var(--ease), background var(--ease);
+    }
+
+    .merchant-nav__mobile-submenu a:hover { color: var(--text); background: var(--hover); }
+
+    .merchant-nav__mobile-link {
+      display: block; padding: 16px 4px;
+      font-size: 17px; font-weight: 600;
+      color: var(--text); text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .merchant-nav__mobile-link:hover { color: var(--jade); }
+
+    .merchant-nav__mobile-tools {
+      display: flex; gap: 10px; margin-top: 18px; padding-top: 18px;
+      border-top: 1px solid var(--line); flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-tools .merchant-nav__icon-btn {
+      display: flex !important;
+      flex: 1; width: auto; height: 46px; gap: 8px;
+      font-size: 14px; font-weight: 600;
+    }
+
+    .merchant-nav__mobile-actions {
+      display: flex; flex-direction: column; gap: 10px; margin-top: 16px; flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-actions a {
+      display: flex; align-items: center; justify-content: center;
+      padding: 14px 18px; border-radius: var(--r-sm);
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      transition: background var(--ease), color var(--ease);
+      font-family: var(--font-sans);
+    }
+
+    .merchant-nav__mobile-actions .action-login {
+      color: var(--text-2); border: 1px solid var(--line-2);
+    }
+
+    .merchant-nav__mobile-actions .action-login:hover {
+      background: var(--hover); color: var(--text);
+    }
+
+    /* ============================================================
+       BUSINESS TYPES PAGE — SHARED UTILITIES
+       ============================================================ */
+    .bt-section {
+      padding: 110px 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .bt-section:last-of-type { border-bottom: none; }
+    .bt-section--alt { background: var(--bg-1); }
+
+    .bt-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--jade);
+      margin-bottom: 20px;
+    }
+
+    .bt-eyebrow::before {
+      content: ""; width: 26px; height: 1.5px;
+      background: linear-gradient(90deg, var(--jade), transparent);
+      border-radius: 2px;
+    }
+
+    .bt-title {
+      font-size: clamp(32px, 4.2vw, 50px);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1.06;
+      color: var(--text);
+      max-width: 20ch;
+    }
+
+    .bt-title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bt-desc {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 60ch;
+    }
+
+    .bt-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 30px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--ease);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .bt-btn--solid {
+      background: var(--jade);
+      color: #03110e;
+      box-shadow: 0 12px 36px var(--jade-soft);
+    }
+
+    .bt-btn--solid:hover {
+      background: var(--jade-2);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 48px var(--jade-soft);
+    }
+
+    .bt-btn--glass {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--text);
+      border: 1px solid var(--line-2);
+    }
+
+    .bt-btn--glass:hover {
+      background: var(--hover);
+      border-color: var(--jade-line);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       HERO — SAME STRUCTURE, NEW CONTENT
+       ============================================================ */
+    .bt-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 130px 0 110px;
+      background:
+        radial-gradient(ellipse 55% 45% at 50% -8%, var(--glow), transparent 65%),
+        var(--bg);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .bt-hero__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 55% 55% at 50% 30%, #000 0%, transparent 72%);
+      -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 30%, #000 0%, transparent 72%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .bt-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .bt-hero__pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .bt-hero__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--line-2);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-2);
+      letter-spacing: 0.01em;
+    }
+
+    .bt-hero__pill--accent {
+      color: var(--jade);
+      font-family: var(--font-mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 11.5px;
+    }
+
+    .bt-hero__pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--jade);
+      box-shadow: 0 0 0 3px var(--jade-soft);
+    }
+
+    .bt-hero__title {
+      font-size: clamp(40px, 6vw, 76px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.98;
+      color: var(--text);
+      margin: 0 auto 28px;
+      max-width: 16ch;
+    }
+
+    .bt-hero__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      display: inline-block;
+      padding-bottom: 0.06em;
+      background: linear-gradient(120deg, var(--jade) 20%, var(--champagne) 85%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bt-hero__lead {
+      font-size: clamp(17px, 2vw, 19px);
+      line-height: 1.65;
+      color: var(--text-2);
+      max-width: 56ch;
+      margin: 0 auto 40px;
+    }
+
+    .bt-hero__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .bt-hero__stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .bt-hero__stat {
+      background: var(--bg-1);
+      padding: 26px 18px;
+      text-align: center;
+    }
+
+    .bt-hero__stat-num {
+      font-size: clamp(22px, 2.6vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .bt-hero__stat-num span {
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bt-hero__stat-lbl {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       SECTION 1 — BUSINESS SEGMENTS (large feature cards)
+       ============================================================ */
+    .bt-segments__head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 60px;
+    }
+
+    .bt-segments__intro {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 46ch;
+      padding-bottom: 6px;
+    }
+
+    .bt-segments__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .bt-segment-card {
+      background: var(--bg-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      padding: 40px 36px;
+      transition: all var(--ease);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bt-segment-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, var(--jade-soft), transparent 70%);
+      opacity: 0;
+      transition: opacity var(--ease);
+      pointer-events: none;
+    }
+
+    .bt-segment-card:hover {
+      border-color: var(--jade-line);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .bt-segment-card:hover::before { opacity: 1; }
+
+    .bt-segment-card__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .bt-segment-card__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--jade-soft);
+      color: var(--jade);
+      transition: transform var(--ease);
+    }
+
+    .bt-segment-card:hover .bt-segment-card__icon { transform: scale(1.06) rotate(-4deg); }
+
+    .bt-segment-card__icon svg {
+      width: 25px;
+      height: 25px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .bt-segment-card__badge {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      background: var(--bg-2);
+      color: var(--text-3);
+      border: 1px solid var(--line);
+    }
+
+    .bt-segment-card__title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.15;
+      position: relative;
+    }
+
+    .bt-segment-card__desc {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-3);
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .bt-segment-card__features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .bt-segment-card__feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+
+    .bt-segment-card__feature svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: var(--jade);
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-top: 2px;
+    }
+
+    .bt-segment-card__link {
+      margin-top: auto;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--jade);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap var(--ease);
+      position: relative;
+    }
+
+    .bt-segment-card__link:hover { gap: 10px; }
+
+    /* ============================================================
+       SECTION 2 — SIZE-BASED MATCHING (3 columns)
+       ============================================================ */
+    .bt-size__head {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .bt-size__head .bt-title { margin-left: auto; margin-right: auto; }
+    .bt-size__head .bt-desc { margin: 20px auto 0; }
+
+    .bt-size__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .bt-size-card {
+      background: var(--bg-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      padding: 36px 32px;
+      transition: all var(--ease);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bt-size-card--featured {
+      border-color: var(--jade-line);
+      background: var(--bg-2);
+      position: relative;
+      box-shadow: 0 0 0 1px var(--jade-line), var(--shadow-md);
+    }
+
+    .bt-size-card:hover {
+      border-color: var(--jade-line);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .bt-size-card__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--jade);
+      margin-bottom: 14px;
+    }
+
+    .bt-size-card__title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .bt-size-card__volume {
+      font-size: 14px;
+      color: var(--text-3);
+      margin-bottom: 24px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.02em;
+    }
+
+    .bt-size-card__list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .bt-size-card__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+
+    .bt-size-card__item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: var(--jade);
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-top: 2px;
+    }
+
+    .bt-size-card__cta {
+      display: block;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid var(--line-2);
+      color: var(--text);
+      transition: all var(--ease);
+      margin-top: auto;
+    }
+
+    .bt-size-card__cta:hover {
+      background: var(--jade);
+      color: #03110e;
+      border-color: var(--jade);
+    }
+
+    .bt-size-card--featured .bt-size-card__cta {
+      background: var(--jade);
+      color: #03110e;
+      border-color: var(--jade);
+    }
+
+    .bt-size-card--featured .bt-size-card__cta:hover {
+      background: var(--jade-2);
+      border-color: var(--jade-2);
+    }
+
+    /* ============================================================
+       SECTION 3 — INDUSTRY MATRIX (grid of verticals)
+       ============================================================ */
+    .bt-matrix__head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .bt-matrix__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .bt-matrix__cell {
+      background: var(--bg-1);
+      padding: 32px 28px;
+      transition: background var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bt-matrix__cell:hover { background: var(--bg-2); }
+
+    .bt-matrix__cell-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--jade-soft);
+      color: var(--jade);
+      margin-bottom: 6px;
+    }
+
+    .bt-matrix__cell-icon svg {
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .bt-matrix__cell-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .bt-matrix__cell-desc {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--text-3);
+    }
+
+    /* ============================================================
+       SECTION 4 — FEATURE SPOTLIGHT (split with image)
+       ============================================================ */
+    .bt-spotlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .bt-spotlight__img {
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 4 / 3.2;
+    }
+
+    .bt-spotlight__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: var(--img-filter) brightness(0.92);
+    }
+
+    .bt-spotlight__list {
+      list-style: none;
+      padding: 0;
+      margin: 32px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .bt-spotlight__item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .bt-spotlight__item-icon {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--jade-soft);
+      color: var(--jade);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .bt-spotlight__item-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .bt-spotlight__item-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.35;
+    }
+
+    .bt-spotlight__item-desc {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: var(--text-3);
+    }
+
+    /* ============================================================
+       SECTION 5 — ONBOARDING TIMELINE (horizontal steps)
+       ============================================================ */
+    .bt-onboarding__head {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 64px;
+    }
+
+    .bt-onboarding__head .bt-title { margin-left: auto; margin-right: auto; }
+    .bt-onboarding__head .bt-desc { margin: 20px auto 0; }
+
+    .bt-onboarding__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .bt-onboarding__steps::before {
+      content: "";
+      position: absolute;
+      top: 27px;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--jade-line), var(--line) 50%, var(--jade-line));
+    }
+
+    [dir="rtl"] .bt-onboarding__steps::before {
+      background: linear-gradient(270deg, var(--jade-line), var(--line) 50%, var(--jade-line));
+    }
+
+    .bt-onboarding__step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .bt-onboarding__step-dot {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--bg-1);
+      border: 1px solid var(--line-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--jade);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 2;
+      transition: all var(--ease);
+    }
+
+    .bt-onboarding__step:hover .bt-onboarding__step-dot {
+      background: var(--jade);
+      color: #03110e;
+      border-color: var(--jade);
+      transform: scale(1.08);
+    }
+
+    .bt-onboarding__step-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .bt-onboarding__step-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-3);
+      max-width: 24ch;
+    }
+
+    /* ============================================================
+       SECTION 6 — CTA (same pattern)
+       ============================================================ */
+    .bt-cta {
+      position: relative;
+      padding: 110px 0;
+      background:
+        radial-gradient(ellipse 55% 90% at 50% 120%, var(--jade-soft), transparent 70%),
+        var(--bg-1);
+      text-align: center;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .bt-cta__title {
+      font-size: clamp(34px, 4.8vw, 54px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      color: var(--text);
+      max-width: 20ch;
+      margin: 0 auto 20px;
+    }
+
+    .bt-cta__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bt-cta__desc {
+      font-size: 18px;
+      color: var(--text-2);
+      max-width: 52ch;
+      margin: 0 auto 38px;
+      line-height: 1.65;
+    }
+
+    .bt-cta__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       FOOTER (identical to index.html)
+       ============================================================ */
+    .site-footer {
+      background: var(--bg-1);
+      border-top: 1px solid var(--line);
+      padding: 76px 0 0;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1.7fr repeat(4, 1fr);
+      gap: 44px;
+      padding-bottom: 64px;
+    }
+
+    .footer__brand { max-width: 320px; }
+    .footer__brand .brand-logo { margin-bottom: 20px; }
+
+    .footer__tagline {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--text-3);
+      margin-bottom: 26px;
+    }
+
+    .footer__social { display: flex; gap: 10px; }
+
+    .footer__social a {
+      width: 42px; height: 42px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-3);
+      transition: all var(--ease);
+    }
+
+    .footer__social a:hover {
+      color: var(--jade);
+      background: var(--hover);
+      border-color: var(--jade-line);
+      transform: translateY(-2px);
+    }
+
+    .footer__social svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .footer__col-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+
+    .footer__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .footer__list a {
+      font-size: 14.5px;
+      color: var(--text-3);
+      transition: color var(--ease);
+      line-height: 1.5;
+    }
+
+    .footer__list a:hover { color: var(--jade); }
+
+    .footer__bottom {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer__copy { font-size: 13.5px; color: var(--text-4); }
+    .footer__legal { display: flex; gap: 26px; flex-wrap: wrap; }
+    .footer__legal a { font-size: 13.5px; color: var(--text-4); transition: color var(--ease); }
+    .footer__legal a:hover { color: var(--jade); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    /* Tablet / iPad / iPad Pro / Mobile — All iPad models & orientations (screens <= 1400px) */
+    @media (max-width: 1400px) {
+      .merchant-nav__list { display: none !important; }
+      .merchant-nav__actions { display: none !important; }
+      .merchant-nav__mobile-toggle { display: flex !important; margin-left: auto; }
+      [dir="rtl"] .merchant-nav__mobile-toggle { margin-left: 0; margin-right: auto; }
+      .merchant-nav__inner { height: 72px; padding: 0 20px; }
+
+      .footer__grid { grid-template-columns: 1.4fr repeat(2, 1fr); row-gap: 50px; }
+      .bt-matrix__grid { grid-template-columns: repeat(2, 1fr); }
+      .bt-matrix__cell:last-child { grid-column: 1 / -1; }
+
+      .bt-hero { padding: 96px 0 88px; }
+      .bt-hero__stats { grid-template-columns: repeat(2, 1fr); }
+
+      .bt-segments__head { grid-template-columns: 1fr; gap: 20px; }
+      .bt-segments__grid { grid-template-columns: 1fr; }
+      .bt-size__grid { grid-template-columns: 1fr; }
+      .bt-spotlight { grid-template-columns: 1fr; gap: 44px; }
+      .bt-spotlight__img { max-width: 560px; aspect-ratio: 16 / 10; }
+      .bt-onboarding__steps { grid-template-columns: 1fr 1fr; gap: 48px 0; }
+      .bt-onboarding__steps::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .bt-section { padding: 84px 0; }
+      .bt-hero { padding: 80px 0 72px; }
+      .bt-hero__actions { margin-bottom: 52px; }
+
+      .bt-matrix__grid { grid-template-columns: 1fr; }
+      .bt-matrix__cell:last-child { grid-column: auto; }
+
+      .footer__grid { grid-template-columns: 1fr 1fr; gap: 42px; padding-bottom: 52px; }
+      .footer__brand { grid-column: 1 / -1; max-width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .merchant-nav__inner { height: 66px; padding: 0 16px; gap: 8px; }
+      .merchant-nav__mobile-panel { top: 66px; height: calc(100vh - 66px); height: calc(100dvh - 66px); max-height: calc(100dvh - 66px); padding: 16px 20px 80px; }
+      .brand-logo { font-size: 19px; gap: 8px; }
+      .brand-logo__mark { width: 25px; height: 25px; }
+      .merchant-nav__actions { gap: 6px; }
+      .merchant-nav__icon-btn { width: 38px; height: 38px; }
+      .merchant-nav__mobile-toggle { width: 38px; height: 38px; }
+
+      .container { padding: 0 18px; }
+      .bt-hero__inner { padding: 0 18px; }
+      .bt-hero__pills { gap: 8px; margin-bottom: 24px; }
+      .bt-hero__pill { font-size: 11.5px; padding: 6px 13px; }
+      .bt-hero__actions { flex-direction: column; align-items: stretch; margin-bottom: 44px; }
+      .bt-hero__actions .bt-btn { width: 100%; }
+      .bt-hero__stats { grid-template-columns: 1fr; max-width: 360px; }
+
+      .bt-onboarding__steps { grid-template-columns: 1fr; gap: 40px 0; }
+      .bt-onboarding__step-dot { margin-bottom: 18px; }
+
+      .bt-cta { padding: 84px 0; }
+      .bt-cta__actions { flex-direction: column; width: 100%; }
+      .bt-cta__actions .bt-btn { width: 100%; }
+
+      .footer__grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+
+    @media (max-width: 400px) {
+      .merchant-nav__icon-btn--rtl { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER / NAVBAR (identical to about.html)
+       ============================================================ -->
+  <header class="merchant-nav" role="banner">
+    <nav class="merchant-nav__inner" aria-label="Main navigation">
+
+      <a href="index.html" class="brand-logo" aria-label="MerchantPay home">
+        <svg class="brand-logo__mark" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M12.927 16.371a1.47 1.47 0 0 0 .061 2.027l68.595 68.594c.555.555 1.446.59 2.026.062 10.058-9.152 16.372-22.348 16.372-37.018C99.98 22.402 77.579 0 49.945 0c-14.67 0-27.866 6.313-37.018 16.371M4.353 29.39a1.47 1.47 0 0 0 .309 1.648L68.943 95.32c.434.434 1.09.562 1.648.308a50 50 0 0 0 4.335-2.227c.834-.482.962-1.62.28-2.3L8.882 24.773c-.68-.68-1.818-.553-2.3.281a50 50 0 0 0-2.228 4.334m-3.9 18.407a1.48 1.48 0 0 1-.432-1.14q.2-2.986.74-5.866c.215-1.15 1.62-1.55 2.448-.722l56.703 56.704c.828.827.429 2.233-.722 2.448a50 50 0 0 1-5.865.74 1.48 1.48 0 0 1-1.14-.433zm3.48 13.963c-1.033-1.033-2.7-.143-2.322 1.268C6.221 80.22 19.761 93.76 36.954 98.37c1.41.379 2.3-1.289 1.268-2.322z"/>
+        </svg>
+        <span>Merchant<span class="brand-logo__text-accent">Pay</span></span>
+      </a>
+
+      <ul class="merchant-nav__list" role="menubar">
+
+        <li class="merchant-nav__item" role="none" data-dropdown>
+          <button class="merchant-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-home">
+            Home
+            <svg class="merchant-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__dropdown" id="dropdown-home" role="menu">
+            <a href="index.html" class="merchant-nav__dropdown-link" role="menuitem">Home 1</a>
+            <a href="home-2.html" class="merchant-nav__dropdown-link" role="menuitem">Home 2</a>
+          </div>
+        </li>
+
+        <li class="merchant-nav__item" role="none"><a href="about.html" class="merchant-nav__link" role="menuitem">About Us</a></li>
+        <li class="merchant-nav__item" role="none"><a href="payment-solutions.html" class="merchant-nav__link" role="menuitem">Payment Solutions</a></li>
+        <li class="merchant-nav__item" role="none"><a href="business-types.html" class="merchant-nav__link is-active" role="menuitem" aria-current="page">Business Types</a></li>
+        <li class="merchant-nav__item" role="none"><a href="pricing.html" class="merchant-nav__link" role="menuitem">Pricing</a></li>
+        <li class="merchant-nav__item" role="none"><a href="security.html" class="merchant-nav__link" role="menuitem">Security</a></li>
+        <li class="merchant-nav__item" role="none"><a href="contact.html" class="merchant-nav__link" role="menuitem">Contact</a></li>
+
+        <li class="merchant-nav__item" role="none" data-dropdown>
+          <button class="merchant-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-dashboard">
+            Dashboard
+            <svg class="merchant-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__dropdown" id="dropdown-dashboard" role="menu">
+            <a href="user-dashboard.html" class="merchant-nav__dropdown-link" role="menuitem">User Dashboard</a>
+            <a href="admin-dashboard.html" class="merchant-nav__dropdown-link" role="menuitem">Admin Dashboard</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="merchant-nav__actions">
+        <button class="merchant-nav__icon-btn" data-theme-toggle aria-label="Toggle dark and light mode" title="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+
+        <button class="merchant-nav__icon-btn merchant-nav__icon-btn--rtl" data-rtl-toggle aria-label="Toggle right-to-left direction" title="Toggle RTL">
+          <span class="merchant-nav__rtl-label">RTL</span>
+        </button>
+
+        <a href="login.html" class="merchant-nav__action-link">Login</a>
+      </div>
+
+      <button class="merchant-nav__mobile-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-panel" data-mobile-toggle>
+        <svg class="icon-menu" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1" y="3.5" width="14" height="1.5" rx="0.75"/>
+          <rect x="1" y="7.25" width="14" height="1.5" rx="0.75"/>
+          <rect x="1" y="11" width="14" height="1.5" rx="0.75"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 1 1-1.06-1.06L6.94 8 3.47 4.53a.75.75 0 0 1 0-1.06Z"/>
+        </svg>
+      </button>
+
+    </nav>
+
+    <div class="merchant-nav__mobile-panel" id="mobile-panel" role="dialog" aria-label="Mobile navigation">
+      <ul style="list-style:none;padding:0;margin:0;">
+
+        <li class="merchant-nav__mobile-item" data-mobile-dropdown>
+          <button class="merchant-nav__mobile-trigger" aria-expanded="false">
+            Home
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__mobile-submenu">
+            <a href="index.html">Home 1</a>
+            <a href="home-2.html">Home 2</a>
+          </div>
+        </li>
+
+        <li class="merchant-nav__mobile-item"><a href="about.html" class="merchant-nav__mobile-link">About Us</a></li>
+        <li class="merchant-nav__mobile-item"><a href="payment-solutions.html" class="merchant-nav__mobile-link">Payment Solutions</a></li>
+        <li class="merchant-nav__mobile-item"><a href="business-types.html" class="merchant-nav__mobile-link is-active" aria-current="page">Business Types</a></li>
+        <li class="merchant-nav__mobile-item"><a href="pricing.html" class="merchant-nav__mobile-link">Pricing</a></li>
+        <li class="merchant-nav__mobile-item"><a href="security.html" class="merchant-nav__mobile-link">Security</a></li>
+        <li class="merchant-nav__mobile-item"><a href="contact.html" class="merchant-nav__mobile-link">Contact</a></li>
+
+        <li class="merchant-nav__mobile-item" data-mobile-dropdown>
+          <button class="merchant-nav__mobile-trigger" aria-expanded="false">
+            Dashboard
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__mobile-submenu">
+            <a href="user-dashboard.html">User Dashboard</a>
+            <a href="admin-dashboard.html">Admin Dashboard</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="merchant-nav__mobile-tools">
+        <button class="merchant-nav__icon-btn" data-theme-toggle aria-label="Toggle dark and light mode">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <span>Theme</span>
+        </button>
+        <button class="merchant-nav__icon-btn" data-rtl-toggle aria-label="Toggle right-to-left direction">
+          <span class="merchant-nav__rtl-label">RTL</span>
+          <span>Direction</span>
+        </button>
+      </div>
+
+      <div class="merchant-nav__mobile-actions">
+        <a href="login.html" class="action-login">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT — BUSINESS TYPES PAGE (HERO + 6 SECTIONS)
+       ============================================================ -->
+  <main id="main-content">
+
+    <!-- ============ HERO — same structure, new content ============ -->
+    <section class="bt-hero" aria-labelledby="bt-hero-title">
+      <div class="bt-hero__grid" aria-hidden="true"></div>
+      <div class="bt-hero__inner">
+        <div class="bt-hero__pills">
+          <span class="bt-hero__pill bt-hero__pill--accent">
+            <span class="bt-hero__pill-dot" aria-hidden="true"></span>
+            Business Types
+          </span>
+          <span class="bt-hero__pill">Startup · SMB · Enterprise · Platform</span>
+        </div>
+
+        <h1 class="bt-hero__title" id="bt-hero-title">
+          Payments that fit <em>your model,</em> not the other way around.
+        </h1>
+
+        <p class="bt-hero__lead">
+          Whether you're a two-person SaaS, a high-volume marketplace, or a global
+          enterprise, MerchantPay adapts to your revenue model, your risk profile,
+          and your operational reality.
+        </p>
+
+        <div class="bt-hero__actions">
+          <a href="contact.html" class="bt-btn bt-btn--solid">Find your fit</a>
+          <a href="pricing.html" class="bt-btn bt-btn--glass">Compare plans →</a>
+        </div>
+
+        <div class="bt-hero__stats">
+          <div class="bt-hero__stat">
+            <div class="bt-hero__stat-num"><span>4</span></div>
+            <div class="bt-hero__stat-lbl">Business size tiers</div>
+          </div>
+          <div class="bt-hero__stat">
+            <div class="bt-hero__stat-num"><span>12</span>+</div>
+            <div class="bt-hero__stat-lbl">Industry verticals</div>
+          </div>
+          <div class="bt-hero__stat">
+            <div class="bt-hero__stat-num"><span>3</span> days</div>
+            <div class="bt-hero__stat-lbl">Average go-live</div>
+          </div>
+          <div class="bt-hero__stat">
+            <div class="bt-hero__stat-num"><span>1</span> API</div>
+            <div class="bt-hero__stat-lbl">For every segment</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 1 — BUSINESS SEGMENTS ============ -->
+    <section class="bt-section" aria-labelledby="bt-segments-title">
+      <div class="container">
+        <div class="bt-segments__head">
+          <div>
+            <div class="bt-eyebrow">Who we serve</div>
+            <h2 class="bt-title" id="bt-segments-title">
+              Four models. <em>One platform.</em>
+            </h2>
+          </div>
+          <p class="bt-segments__intro">
+            Every business type has different payment flows, different compliance
+            needs, and different definitions of "done." We build for each one
+            deliberately — not as an afterthought.
+          </p>
+        </div>
+
+        <div class="bt-segments__grid">
+
+          <article class="bt-segment-card">
+            <div class="bt-segment-card__top">
+              <div class="bt-segment-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></svg>
+              </div>
+              <span class="bt-segment-card__badge">Starter</span>
+            </div>
+            <h3 class="bt-segment-card__title">Early-stage startups</h3>
+            <p class="bt-segment-card__desc">
+              You need to accept payments today, not after a six-week integration.
+              Simple pricing, instant sandbox, and an API that won't fight you.
+            </p>
+            <ul class="bt-segment-card__features">
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Instant sandbox with test cards</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Pay-as-you-go, no minimums</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Drop-in checkout components</span>
+              </li>
+            </ul>
+            <a href="signup.html" class="bt-segment-card__link">Start building <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="bt-segment-card">
+            <div class="bt-segment-card__top">
+              <div class="bt-segment-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+              </div>
+              <span class="bt-segment-card__badge">Growth</span>
+            </div>
+            <h3 class="bt-segment-card__title">Scaling SMBs</h3>
+            <p class="bt-segment-card__desc">
+              You've outgrown your first processor. You need multi-acquirer routing,
+              smarter retries, and a dashboard that actually explains your revenue.
+            </p>
+            <ul class="bt-segment-card__features">
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Multi-acquirer routing</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Revenue analytics and reconciliation</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Priority support and SLAs</span>
+              </li>
+            </ul>
+            <a href="contact.html" class="bt-segment-card__link">Talk to sales <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="bt-segment-card">
+            <div class="bt-segment-card__top">
+              <div class="bt-segment-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </div>
+              <span class="bt-segment-card__badge">Platform</span>
+            </div>
+            <h3 class="bt-segment-card__title">Marketplaces &amp; platforms</h3>
+            <p class="bt-segment-card__desc">
+              You move money between buyers, sellers, and your own balance sheet.
+              You need split payments, seller onboarding, and multi-party payouts.
+            </p>
+            <ul class="bt-segment-card__features">
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Split payments and escrow</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Seller KYC and tax reporting</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Multi-party payouts in 42 countries</span>
+              </li>
+            </ul>
+            <a href="contact.html" class="bt-segment-card__link">Explore platform tools <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="bt-segment-card">
+            <div class="bt-segment-card__top">
+              <div class="bt-segment-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+              </div>
+              <span class="bt-segment-card__badge">Enterprise</span>
+            </div>
+            <h3 class="bt-segment-card__title">Enterprise &amp; global</h3>
+            <p class="bt-segment-card__desc">
+              You operate across entities, currencies, and regulatory regimes.
+              You need dedicated infrastructure, custom interchange, and named support.
+            </p>
+            <ul class="bt-segment-card__features">
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Dedicated acquiring and IC+ pricing</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Multi-entity and multi-currency ledgers</span>
+              </li>
+              <li class="bt-segment-card__feature">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Named solutions engineer and 24/7 ops</span>
+              </li>
+            </ul>
+            <a href="contact.html" class="bt-segment-card__link">Contact enterprise <span aria-hidden="true">→</span></a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — SIZE-BASED MATCHING ============ -->
+    <section class="bt-section bt-section--alt" aria-labelledby="bt-size-title">
+      <div class="container">
+        <div class="bt-size__head">
+          <div class="bt-eyebrow" style="justify-content:center;">Right-sized</div>
+          <h2 class="bt-title" id="bt-size-title">
+            Pricing that scales <em>with your volume.</em>
+          </h2>
+          <p class="bt-desc">
+            No "contact us" games for mid-market pricing. Pick the tier that matches
+            your monthly processing volume and see exactly what you'll pay.
+          </p>
+        </div>
+
+        <div class="bt-size__grid">
+
+          <div class="bt-size-card">
+            <div class="bt-size-card__label">Tier 1</div>
+            <h3 class="bt-size-card__title">Launch</h3>
+            <div class="bt-size-card__volume">$0 — $50k / month</div>
+            <ul class="bt-size-card__list">
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Standard card rates</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Single acquirer</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Email support (24h SLA)</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Basic dashboard</span></li>
+            </ul>
+            <a href="signup.html" class="bt-size-card__cta">Get started</a>
+          </div>
+
+          <div class="bt-size-card">
+            <div class="bt-size-card__label">Tier 2</div>
+            <h3 class="bt-size-card__title">Grow</h3>
+            <div class="bt-size-card__volume">$50k — $500k / month</div>
+            <ul class="bt-size-card__list">
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Interchange+ pricing</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Multi-acquirer routing</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Chat support (8h SLA)</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Full reconciliation suite</span></li>
+            </ul>
+            <a href="contact.html" class="bt-size-card__cta">Talk to sales</a>
+          </div>
+
+          <div class="bt-size-card bt-size-card--featured">
+            <div class="bt-size-card__label">Tier 3 · Most popular</div>
+            <h3 class="bt-size-card__title">Scale</h3>
+            <div class="bt-size-card__volume">$500k — $10M / month</div>
+            <ul class="bt-size-card__list">
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Volume discounts + IC+</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Smart retries + network tokens</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Dedicated account manager</span></li>
+              <li class="bt-size-card__item"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg><span>Custom reporting + webhooks</span></li>
+            </ul>
+            <a href="contact.html" class="bt-size-card__cta">Get a quote</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — INDUSTRY MATRIX ============ -->
+    <section class="bt-section" aria-labelledby="bt-matrix-title">
+      <div class="container">
+        <div class="bt-matrix__head">
+          <div>
+            <div class="bt-eyebrow">Vertical expertise</div>
+            <h2 class="bt-title" id="bt-matrix-title">
+              Tuned for <em>your industry.</em>
+            </h2>
+          </div>
+          <a href="payment-solutions.html" class="bt-btn bt-btn--glass">See payment solutions →</a>
+        </div>
+
+        <div class="bt-matrix__grid">
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">E-commerce</div>
+            <div class="bt-matrix__cell-desc">Cart recovery, one-click checkout, and high-auth-rate routing.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 10h8M8 14h5"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">SaaS &amp; subscriptions</div>
+            <div class="bt-matrix__cell-desc">Recurring billing, dunning, proration, and revenue recognition.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2v20M17 7H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">Marketplaces</div>
+            <div class="bt-matrix__cell-desc">Split payments, seller onboarding, and multi-party payouts.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">On-demand &amp; gig</div>
+            <div class="bt-matrix__cell-desc">Instant payouts, tips, and card-on-file for delivery and services.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">Hospitality &amp; travel</div>
+            <div class="bt-matrix__cell-desc">Authorization holds, no-show fees, and multi-currency bookings.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7Z"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">Healthcare &amp; insurance</div>
+            <div class="bt-matrix__cell-desc">HIPAA-aware flows, recurring premiums, and claims disbursement.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">Financial services</div>
+            <div class="bt-matrix__cell-desc">High-risk underwriting, chargeback defense, and PCI Level 1.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">B2B &amp; wholesale</div>
+            <div class="bt-matrix__cell-desc">Net terms, invoicing, purchase orders, and large-ticket approvals.</div>
+          </div>
+
+          <div class="bt-matrix__cell">
+            <div class="bt-matrix__cell-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M2 21c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M17 8h5M19.5 5.5v5"/></svg>
+            </div>
+            <div class="bt-matrix__cell-title">Nonprofits &amp; education</div>
+            <div class="bt-matrix__cell-desc">Donation pages, tuition plans, and reduced nonprofit rates.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 — FEATURE SPOTLIGHT ============ -->
+    <section class="bt-section bt-section--alt" aria-labelledby="bt-spotlight-title">
+      <div class="container">
+        <div class="bt-spotlight">
+          <div class="bt-spotlight__img">
+            <img
+              src="assets/bt1.avif"
+              alt="MerchantPay platform dashboard showing payment flows across business segments"
+              loading="lazy"
+              width="1200"
+              height="960"
+            >
+          </div>
+          <div>
+            <div class="bt-eyebrow">Built for platforms</div>
+            <h2 class="bt-title" id="bt-spotlight-title">
+              When you move money <em>for others.</em>
+            </h2>
+            <p class="bt-desc">
+              If you're a marketplace, a platform, or an embedded-finance product, you're
+              not just accepting payments — you're orchestrating them. MerchantPay gives
+              you the primitives to build multi-party money movement without becoming
+              a payments company yourself.
+            </p>
+            <ul class="bt-spotlight__list">
+              <li class="bt-spotlight__item">
+                <span class="bt-spotlight__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="bt-spotlight__item-title">Connected accounts &amp; KYC</div>
+                  <div class="bt-spotlight__item-desc">Onboard sellers or drivers with hosted KYC, then pay them out globally.</div>
+                </div>
+              </li>
+              <li class="bt-spotlight__item">
+                <span class="bt-spotlight__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="bt-spotlight__item-title">Split payments &amp; application fees</div>
+                  <div class="bt-spotlight__item-desc">Route funds to multiple parties in one transaction with automatic fee collection.</div>
+                </div>
+              </li>
+              <li class="bt-spotlight__item">
+                <span class="bt-spotlight__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="bt-spotlight__item-title">Embedded onboarding API</div>
+                  <div class="bt-spotlight__item-desc">White-label seller onboarding directly inside your product, with your branding.</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 5 — ONBOARDING TIMELINE ============ -->
+    <section class="bt-section" aria-labelledby="bt-onboarding-title">
+      <div class="container">
+        <div class="bt-onboarding__head">
+          <div class="bt-eyebrow" style="justify-content:center;">Go live fast</div>
+          <h2 class="bt-title" id="bt-onboarding-title">
+            From signed to <em>shipping in days.</em>
+          </h2>
+          <p class="bt-desc">
+            No multi-month implementation projects. Our onboarding is designed to get
+            you processing revenue in days, not quarters — regardless of your size.
+          </p>
+        </div>
+
+        <div class="bt-onboarding__steps">
+
+          <div class="bt-onboarding__step">
+            <div class="bt-onboarding__step-dot">01</div>
+            <div class="bt-onboarding__step-title">Apply</div>
+            <div class="bt-onboarding__step-desc">Share your business model, volume, and risk profile. Underwriting in 1-2 days.</div>
+          </div>
+
+          <div class="bt-onboarding__step">
+            <div class="bt-onboarding__step-dot">02</div>
+            <div class="bt-onboarding__step-title">Integrate</div>
+            <div class="bt-onboarding__step-desc">Use our SDKs, checkout components, or REST API. Sandbox mirrors production exactly.</div>
+          </div>
+
+          <div class="bt-onboarding__step">
+            <div class="bt-onboarding__step-dot">03</div>
+            <div class="bt-onboarding__step-title">Certify</div>
+            <div class="bt-onboarding__step-desc">Run our test suite and go through a short go-live checklist with your solutions engineer.</div>
+          </div>
+
+          <div class="bt-onboarding__step">
+            <div class="bt-onboarding__step-dot">04</div>
+            <div class="bt-onboarding__step-title">Launch</div>
+            <div class="bt-onboarding__step-desc">Flip the switch to production. We monitor your first 30 days closely alongside you.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — CTA ============ -->
+    <section class="bt-cta" aria-labelledby="bt-cta-title">
+      <div class="container">
+        <h2 class="bt-cta__title" id="bt-cta-title">
+          Find the <em>right fit</em> for your business.
+        </h2>
+        <p class="bt-cta__desc">
+          Tell us about your model, your volume, and your edge cases. We'll map you
+          to the right tier, the right rails, and the right team — no generic pitch.
+        </p>
+        <div class="bt-cta__actions">
+          <a href="contact.html" class="bt-btn bt-btn--solid">Talk to a specialist</a>
+          <a href="signup.html" class="bt-btn bt-btn--glass">Start with sandbox</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (identical to about.html)
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a href="index.html" class="brand-logo" aria-label="MerchantPay home">
+            <svg class="brand-logo__mark" viewBox="0 0 100 100" aria-hidden="true">
+              <path d="M12.927 16.371a1.47 1.47 0 0 0 .061 2.027l68.595 68.594c.555.555 1.446.59 2.026.062 10.058-9.152 16.372-22.348 16.372-37.018C99.98 22.402 77.579 0 49.945 0c-14.67 0-27.866 6.313-37.018 16.371M4.353 29.39a1.47 1.47 0 0 0 .309 1.648L68.943 95.32c.434.434 1.09.562 1.648.308a50 50 0 0 0 4.335-2.227c.834-.482.962-1.62.28-2.3L8.882 24.773c-.68-.68-1.818-.553-2.3.281a50 50 0 0 0-2.228 4.334m-3.9 18.407a1.48 1.48 0 0 1-.432-1.14q.2-2.986.74-5.866c.215-1.15 1.62-1.55 2.448-.722l56.703 56.704c.828.827.429 2.233-.722 2.448a50 50 0 0 1-5.865.74 1.48 1.48 0 0 1-1.14-.433zm3.48 13.963c-1.033-1.033-2.7-.143-2.322 1.268C6.221 80.22 19.761 93.76 36.954 98.37c1.41.379 2.3-1.289 1.268-2.322z"/>
+            </svg>
+            <span>Merchant<span class="brand-logo__text-accent">Pay</span></span>
+          </a>
+          <p class="footer__tagline">
+            The modern payment platform for businesses that want to move fast, stay secure,
+            and keep more of what they earn.
+          </p>
+          <div class="footer__social">
+            <a href="https://x.com" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.3l-4.9-6.4L6.2 22H3l7.3-8.4L2.4 2h6.4l4.4 5.9Zm-1.1 18h1.7L7.3 3.8H5.5Z"/></svg>
+            </a>
+            <a href="https://github.com" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.7.2 2.9.1 3.2.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+            </a>
+            <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.2 2.4 4.2 5.4v6.2ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.4H3.5V9h3.6v11.4Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Product</h4>
+          <ul class="footer__list">
+            <li><a href="payment-solutions.html">Payment Solutions</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="security.html">Security</a></li>
+            <li><a href="business-types.html">Business Types</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Company</h4>
+          <ul class="footer__list">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="press.html">Press</a></li>
+            <li><a href="partners.html">Partners</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Dashboards</h4>
+          <ul class="footer__list">
+            <li><a href="user-dashboard.html">User Dashboard</a></li>
+            <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Create account</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Resources</h4>
+          <ul class="footer__list">
+            <li><a href="docs.html">Documentation</a></li>
+            <li><a href="developers.html">Developers</a></li>
+            <li><a href="status.html">System Status</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="support.html">Support</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 MerchantPay, Inc. All rights reserved.</p>
+        <div class="footer__legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="legal.html">Legal</a>
+          <a href="cookies.html">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT — theme, RTL, dropdowns, mobile menu
+       ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* Active Navigation Highlighting */
+      function setActiveNav() {
+        const nav = document.querySelector('.merchant-nav');
+        if (!nav) return;
+
+        let rawPath = window.location.pathname || '';
+        if (rawPath.endsWith('/') && rawPath.length > 1) {
+          rawPath = rawPath.slice(0, -1);
+        }
+        let page = rawPath.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+        if (!page || page === '' || page === 'index') {
+          page = 'index.html';
+        } else if (!page.includes('.')) {
+          page = page + '.html';
+        }
+
+        const validPages = [
+          'index.html', 'home-2.html', 'about.html', 'payment-solutions.html',
+          'business-types.html', 'pricing.html', 'security.html', 'contact.html',
+          'user-dashboard.html', 'admin-dashboard.html'
+        ];
+        if (!validPages.includes(page)) return;
+
+        // Clear previous active states
+        nav.querySelectorAll('.merchant-nav__link, .merchant-nav__dropdown-link, .merchant-nav__mobile-link, .merchant-nav__mobile-trigger, .merchant-nav__mobile-submenu a').forEach(function (el) {
+          el.removeAttribute('aria-current');
+          el.classList.remove('is-active');
+        });
+
+        // 1. Desktop Links
+        nav.querySelectorAll('.merchant-nav__list a[href]').forEach(function (link) {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          const hrefClean = href.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+          if (hrefClean === page) {
+            link.setAttribute('aria-current', 'page');
+            link.classList.add('is-active');
+
+            const parentDropdown = link.closest('.merchant-nav__dropdown');
+            if (parentDropdown) {
+              const trigger = parentDropdown.closest('.merchant-nav__item')?.querySelector('.merchant-nav__link');
+              if (trigger) {
+                trigger.setAttribute('aria-current', 'page');
+                trigger.classList.add('is-active');
+              }
+            }
+          }
+        });
+
+        // 2. Mobile Links
+        nav.querySelectorAll('.merchant-nav__mobile-panel a[href]').forEach(function (link) {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          const hrefClean = href.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+          if (hrefClean === page) {
+            link.setAttribute('aria-current', 'page');
+            link.classList.add('is-active');
+
+            const parentSubmenu = link.closest('.merchant-nav__mobile-submenu');
+            if (parentSubmenu) {
+              const trigger = parentSubmenu.closest('.merchant-nav__mobile-item')?.querySelector('.merchant-nav__mobile-trigger');
+              if (trigger) {
+                trigger.setAttribute('aria-current', 'page');
+                trigger.classList.add('is-active');
+              }
+            }
+          }
+        });
+      }
+      setActiveNav();
+
+      /* Theme */
+      const root = document.documentElement;
+      const THEME_KEY = 'merchantpay-theme';
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        });
+      }
+
+      (function initTheme() {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+        if (saved === 'dark' || saved === 'light') {
+          applyTheme(saved);
+        } else {
+          const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          applyTheme(prefersLight ? 'light' : 'dark');
+        }
+      })();
+
+      document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const current = root.getAttribute('data-theme');
+          applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+      });
+
+      /* RTL */
+      const DIR_KEY = 'merchantpay-dir';
+
+      function applyDir(dir) {
+        root.setAttribute('dir', dir);
+        root.setAttribute('lang', dir === 'rtl' ? 'ar' : 'en');
+        try { localStorage.setItem(DIR_KEY, dir); } catch (e) {}
+        document.querySelectorAll('[data-rtl-toggle]').forEach(function (btn) {
+          btn.setAttribute('aria-label', dir === 'rtl' ? 'Switch to left-to-right' : 'Switch to right-to-left');
+          btn.setAttribute('aria-pressed', String(dir === 'rtl'));
+        });
+      }
+
+      (function initDir() {
+        let saved = null;
+        try { saved = localStorage.getItem(DIR_KEY); } catch (e) {}
+        applyDir(saved === 'rtl' ? 'rtl' : 'ltr');
+      })();
+
+      document.querySelectorAll('[data-rtl-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const current = root.getAttribute('dir');
+          applyDir(current === 'rtl' ? 'ltr' : 'rtl');
+        });
+      });
+
+      /* Desktop dropdowns */
+      const desktopItems = document.querySelectorAll('.merchant-nav__item[data-dropdown]');
+
+      desktopItems.forEach(function (item) {
+        const trigger = item.querySelector('.merchant-nav__link');
+        let closeTimeout = null;
+
+        function openDropdown() {
+          clearTimeout(closeTimeout);
+          desktopItems.forEach(function (other) {
+            if (other !== item) {
+              other.classList.remove('merchant-nav__item--open');
+              const otherTrigger = other.querySelector('.merchant-nav__link');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+          item.classList.add('merchant-nav__item--open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown() {
+          item.classList.remove('merchant-nav__item--open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        function scheduleClose() { closeTimeout = setTimeout(closeDropdown, 130); }
+
+        item.addEventListener('mouseenter', function () {
+          if (window.matchMedia('(hover: hover)').matches) openDropdown();
+        });
+
+        item.addEventListener('mouseleave', function () {
+          if (window.matchMedia('(hover: hover)').matches) scheduleClose();
+        });
+
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (item.classList.contains('merchant-nav__item--open')) closeDropdown();
+          else openDropdown();
+        });
+
+        trigger.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { closeDropdown(); trigger.focus(); }
+        });
+
+        item.addEventListener('focusout', function (e) {
+          if (!item.contains(e.relatedTarget)) closeDropdown();
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.merchant-nav__item[data-dropdown]')) {
+          desktopItems.forEach(function (item) {
+            item.classList.remove('merchant-nav__item--open');
+            const trigger = item.querySelector('.merchant-nav__link');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          desktopItems.forEach(function (item) {
+            item.classList.remove('merchant-nav__item--open');
+            const trigger = item.querySelector('.merchant-nav__link');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      /* Close mobile panel with Escape key */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobilePanel && mobilePanel.classList.contains('is-open')) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+          mobilePanel.classList.remove('is-open');
+          document.body.style.overflow = '';
+          mobileToggle.focus();
+        }
+      });
+
+      /* Mobile menu */
+      const mobileToggle = document.querySelector('[data-mobile-toggle]');
+      const mobilePanel = document.getElementById('mobile-panel');
+      const navHeader = document.querySelector('.merchant-nav');
+
+      function closeMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+        if (mobilePanel) mobilePanel.classList.remove('is-open');
+        if (navHeader) navHeader.classList.remove('merchant-nav--open');
+        document.body.style.overflow = '';
+      }
+
+      function openMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'true');
+          mobileToggle.setAttribute('aria-label', 'Close navigation menu');
+        }
+        if (mobilePanel) mobilePanel.classList.add('is-open');
+        if (navHeader) navHeader.classList.add('merchant-nav--open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      if (mobileToggle && mobilePanel) {
+        mobileToggle.addEventListener('click', function () {
+          const isOpen = mobileToggle.getAttribute('aria-expanded') === 'true';
+          if (isOpen) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+
+        mobilePanel.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            closeMobileMenu();
+          });
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && mobilePanel.classList.contains('is-open')) {
+            closeMobileMenu();
+            mobileToggle.focus();
+          }
+        });
+      }
+
+      /* Mobile submenus */
+      const mobileDropdowns = document.querySelectorAll('[data-mobile-dropdown]');
+
+      mobileDropdowns.forEach(function (item) {
+        const trigger = item.querySelector('.merchant-nav__mobile-trigger');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', function () {
+          const isOpen = item.classList.contains('merchant-nav__mobile-item--open');
+          mobileDropdowns.forEach(function (other) {
+            if (other !== item) {
+              other.classList.remove('merchant-nav__mobile-item--open');
+              const otherTrigger = other.querySelector('.merchant-nav__mobile-trigger');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+          item.classList.toggle('merchant-nav__mobile-item--open', !isOpen);
+          trigger.setAttribute('aria-expanded', String(!isOpen));
+        });
+      });
+
+                  /* Reset mobile menu on desktop resize */
+      let resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          if (window.innerWidth > 1400) {
+            closeMobileMenu();
+          }
+        }, 150);
+      });
+
+    })();
+  </script>
+</body>
+</html>

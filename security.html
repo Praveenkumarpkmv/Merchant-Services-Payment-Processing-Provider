@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover">
+  <title>Security — MerchantPay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       PALETTE — Obsidian · Jade · Champagne (same as index.html)
+       ============================================================ */
+    :root,
+    [data-theme="dark"] {
+      --bg: #070b0d;
+      --bg-1: #0b1114;
+      --bg-2: #0f171b;
+      --bg-3: #131e23;
+      --hover: #18262c;
+      --line: #1d2f36;
+      --line-2: #294049;
+      --text: #eef5f6;
+      --text-2: #a9c1c7;
+      --text-3: #6f8a92;
+      --text-4: #4a626a;
+      --jade: #34e0c4;
+      --jade-2: #22c7ab;
+      --jade-soft: rgba(52, 224, 196, 0.12);
+      --jade-line: rgba(52, 224, 196, 0.28);
+      --champagne: #f2d0a4;
+      --champagne-soft: rgba(242, 208, 164, 0.12);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.55);
+      --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.65);
+      --header-bg: rgba(7, 11, 13, 0.72);
+      --glass: rgba(15, 23, 27, 0.6);
+      --glass-line: rgba(255, 255, 255, 0.06);
+      --grid: rgba(29, 47, 54, 0.6);
+      --glow: rgba(52, 224, 196, 0.2);
+            --hero-grad-a: #34e0c4;
+      --hero-grad-b: #f2d0a4;
+      --primary: var(--jade);
+      --ghost: var(--glass);
+      --featured: var(--champagne);
+      --solid: var(--bg-1);
+      --map-filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2);
+      --noise-opacity: 0.035;
+      --img-filter: none;
+    }
+
+    [data-theme="light"] {
+      --bg: #f4faf9;
+      --bg-1: #ffffff;
+      --bg-2: #ffffff;
+      --bg-3: #fbfdfd;
+      --hover: #e8f3f1;
+      --line: #d6e6e3;
+      --line-2: #b9d4cf;
+      --text: #061014;
+      --text-2: #2f4a51;
+      --text-3: #5c7880;
+      --text-4: #8ba6ac;
+      --jade: #0f9d8b;
+      --jade-2: #0b8575;
+      --jade-soft: rgba(15, 157, 139, 0.1);
+      --jade-line: rgba(15, 157, 139, 0.25);
+      --champagne: #b6792e;
+      --champagne-soft: rgba(182, 121, 46, 0.1);
+      --shadow-sm: 0 1px 2px rgba(6, 16, 20, 0.06);
+      --shadow-md: 0 12px 32px rgba(6, 16, 20, 0.1);
+      --shadow-lg: 0 30px 80px rgba(6, 16, 20, 0.14);
+      --header-bg: rgba(244, 250, 249, 0.75);
+      --glass: rgba(255, 255, 255, 0.65);
+      --glass-line: rgba(6, 16, 20, 0.06);
+      --grid: rgba(185, 212, 207, 0.55);
+      --glow: rgba(15, 157, 139, 0.12);
+            --hero-grad-a: #0f9d8b;
+      --hero-grad-b: #b6792e;
+      --primary: var(--jade);
+      --ghost: var(--glass);
+      --featured: var(--champagne);
+      --solid: var(--bg-1);
+      --map-filter: none;
+      --noise-opacity: 0.02;
+      --img-filter: none;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: var(--font-sans);
+      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 22px;
+      --r-xl: 32px;
+      --ease: 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      --container: 1300px;
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      transition: background-color 350ms ease, color 350ms ease;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: var(--noise-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      transition: opacity 350ms ease;
+    }
+
+    [dir="rtl"] body { text-align: right; }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
+
+    .skip-link {
+      position: absolute; top: -100px; left: 8px; padding: 10px 18px;
+      background: var(--jade); color: #03110e; border-radius: var(--r-sm);
+      font-size: 14px; font-weight: 700; z-index: 9999; transition: top 200ms;
+    }
+    .skip-link:focus { top: 8px; }
+
+    /* ============================================================
+       HEADER / NAVBAR (identical to index.html)
+       ============================================================ */
+    .merchant-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: var(--header-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--line);
+      transition: background-color 350ms ease, border-color 350ms ease;
+    }
+
+    .merchant-nav__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .brand-logo__mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      fill: var(--jade);
+      transition: fill var(--ease), transform var(--ease);
+    }
+
+    .brand-logo:hover .brand-logo__mark { transform: rotate(-8deg); }
+
+    .brand-logo__text-accent {
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--jade);
+    }
+
+    .merchant-nav__list {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 1px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .merchant-nav__item { position: relative; }
+
+    .merchant-nav__link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 9px 13px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: color var(--ease), background var(--ease);
+      line-height: 1.4;
+    }
+
+    /* Active navigation link styling */
+    .merchant-nav__link[aria-current="page"],
+    .merchant-nav__link.is-active,
+    .merchant-nav__mobile-link[aria-current="page"],
+    .merchant-nav__mobile-link.is-active,
+    .merchant-nav__mobile-trigger[aria-current="page"],
+    .merchant-nav__mobile-trigger.is-active {
+      color: var(--jade) !important;
+      font-weight: 600;
+    }
+
+    .merchant-nav__link[aria-current="page"] .merchant-nav__chevron,
+    .merchant-nav__link.is-active .merchant-nav__chevron,
+    .merchant-nav__mobile-trigger[aria-current="page"] svg,
+    .merchant-nav__mobile-trigger.is-active svg {
+      opacity: 1;
+      fill: var(--jade);
+    }
+
+    .merchant-nav__dropdown-link[aria-current="page"],
+    .merchant-nav__dropdown-link.is-active,
+    .merchant-nav__mobile-submenu a[aria-current="page"],
+    .merchant-nav__mobile-submenu a.is-active {
+      color: var(--jade) !important;
+      font-weight: 600;
+      background: var(--jade-soft);
+    }
+
+    .merchant-nav__link[aria-current="page"]:hover,
+    .merchant-nav__link.is-active:hover,
+    .merchant-nav__mobile-link[aria-current="page"]:hover,
+    .merchant-nav__mobile-link.is-active:hover,
+    .merchant-nav__mobile-trigger[aria-current="page"]:hover,
+    .merchant-nav__mobile-trigger.is-active:hover {
+      color: var(--jade) !important;
+    }
+
+    .merchant-nav__link:hover,
+    .merchant-nav__item--open > .merchant-nav__link {
+      color: var(--text);
+      background: var(--hover);
+    }
+
+    .merchant-nav__link:focus-visible,
+    .merchant-nav__action-link:focus-visible,
+    .merchant-nav__dropdown-link:focus-visible,
+    .merchant-nav__mobile-trigger:focus-visible,
+    .merchant-nav__mobile-link:focus-visible {
+      outline: 2px solid var(--jade);
+      outline-offset: 2px;
+    }
+
+    .merchant-nav__chevron {
+      width: 12px; height: 12px; flex-shrink: 0;
+      transition: transform var(--ease); opacity: 0.6; fill: currentColor;
+    }
+
+    .merchant-nav__item--open > .merchant-nav__link .merchant-nav__chevron {
+      transform: rotate(180deg); opacity: 1;
+    }
+
+    .merchant-nav__dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px) scale(0.98);
+      min-width: 230px;
+      background: var(--glass);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-line);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-lg);
+      padding: 7px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity var(--ease), transform var(--ease), visibility var(--ease);
+      z-index: 100;
+    }
+
+    [dir="rtl"] .merchant-nav__dropdown { transform: translateX(-50%) translateY(-8px) scale(0.98); }
+
+    .merchant-nav__item--open > .merchant-nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .merchant-nav__dropdown-link {
+      display: block;
+      padding: 11px 14px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 450;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color var(--ease), background var(--ease);
+      white-space: nowrap;
+    }
+
+    .merchant-nav__dropdown-link:hover {
+      color: var(--text);
+      background: var(--hover);
+    }
+
+    .merchant-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .merchant-nav__icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: var(--r-sm);
+      color: var(--text-2);
+      background: none;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: color var(--ease), background var(--ease), border-color var(--ease);
+      flex-shrink: 0;
+    }
+
+    .merchant-nav__icon-btn:hover {
+      color: var(--text);
+      background: var(--hover);
+      border-color: var(--line-2);
+    }
+
+    .merchant-nav__icon-btn svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor; stroke-width: 1.7;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .merchant-nav__icon-btn .icon-sun { display: none; }
+    [data-theme="light"] .merchant-nav__icon-btn .icon-sun { display: block; }
+    [data-theme="light"] .merchant-nav__icon-btn .icon-moon { display: none; }
+
+    .merchant-nav__rtl-label {
+      font-size: 12px; font-weight: 800; letter-spacing: 0.04em; font-family: var(--font-mono);
+    }
+
+    .merchant-nav__action-link {
+      display: flex;
+      align-items: center;
+      padding: 9px 20px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: color var(--ease), background var(--ease), border-color var(--ease), transform var(--ease);
+      white-space: nowrap;
+      line-height: 1.4;
+      border: 1px solid var(--line-2);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .merchant-nav__action-link:hover {
+      background: var(--jade);
+      color: #03110e;
+      border-color: var(--jade);
+      transform: translateY(-1px);
+    }
+
+    .merchant-nav__mobile-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      padding: 0;
+      border-radius: var(--r-sm);
+      color: var(--text-2);
+      background: none;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: background var(--ease), color var(--ease);
+      flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-toggle:hover { background: var(--hover); color: var(--text); }
+    .merchant-nav__mobile-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+    .merchant-nav__mobile-toggle .icon-close { display: none; }
+    .merchant-nav__mobile-toggle[aria-expanded="true"] .icon-menu { display: none; }
+    .merchant-nav__mobile-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+        .merchant-nav.merchant-nav--open {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: var(--bg) !important;
+    }
+
+    .merchant-nav__mobile-panel {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: calc(100vh - 72px);
+      height: calc(100dvh - 72px);
+      max-height: calc(100dvh - 72px);
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 24px clamp(20px, 4vw, 40px) 100px;
+      z-index: 9999;
+      flex-direction: column;
+      gap: 2px;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+    }
+
+    .merchant-nav__mobile-panel.is-open {
+      display: flex !important;
+    }
+
+    .merchant-nav__mobile-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    .merchant-nav__mobile-panel > * {
+      max-width: 680px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .merchant-nav__mobile-panel.is-open { display: flex; }
+
+    .merchant-nav__mobile-item { border-bottom: 1px solid var(--line); flex-shrink: 0; }
+    .merchant-nav__mobile-item:last-child { border-bottom: none; }
+
+    .merchant-nav__mobile-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 4px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: color var(--ease);
+      line-height: 1.4;
+    }
+
+    [dir="rtl"] .merchant-nav__mobile-trigger { text-align: right; }
+    .merchant-nav__mobile-trigger:hover { color: var(--jade); }
+
+    .merchant-nav__mobile-trigger svg {
+      width: 15px; height: 15px; fill: var(--text-3);
+      transition: transform var(--ease); flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-item--open .merchant-nav__mobile-trigger svg { transform: rotate(180deg); }
+
+    .merchant-nav__mobile-submenu {
+      display: none; flex-direction: column; padding: 0 0 14px 14px; gap: 0;
+    }
+
+    [dir="rtl"] .merchant-nav__mobile-submenu { padding: 0 14px 14px 0; }
+    .merchant-nav__mobile-item--open .merchant-nav__mobile-submenu { display: flex; }
+
+    .merchant-nav__mobile-submenu a {
+      display: block; padding: 11px 10px;
+      font-size: 15.5px; font-weight: 450;
+      color: var(--text-2); text-decoration: none;
+      border-radius: var(--r-sm);
+      transition: color var(--ease), background var(--ease);
+    }
+
+    .merchant-nav__mobile-submenu a:hover { color: var(--text); background: var(--hover); }
+
+    .merchant-nav__mobile-link {
+      display: block; padding: 16px 4px;
+      font-size: 17px; font-weight: 600;
+      color: var(--text); text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .merchant-nav__mobile-link:hover { color: var(--jade); }
+
+    .merchant-nav__mobile-tools {
+      display: flex; gap: 10px; margin-top: 18px; padding-top: 18px;
+      border-top: 1px solid var(--line); flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-tools .merchant-nav__icon-btn {
+      display: flex !important;
+      flex: 1; width: auto; height: 46px; gap: 8px;
+      font-size: 14px; font-weight: 600;
+    }
+
+    .merchant-nav__mobile-actions {
+      display: flex; flex-direction: column; gap: 10px; margin-top: 16px; flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-actions a {
+      display: flex; align-items: center; justify-content: center;
+      padding: 14px 18px; border-radius: var(--r-sm);
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      transition: background var(--ease), color var(--ease);
+      font-family: var(--font-sans);
+    }
+
+    .merchant-nav__mobile-actions .action-login {
+      color: var(--text-2); border: 1px solid var(--line-2);
+    }
+
+    .merchant-nav__mobile-actions .action-login:hover {
+      background: var(--hover); color: var(--text);
+    }
+
+    /* ============================================================
+       SECURITY PAGE — SHARED UTILITIES
+       ============================================================ */
+    .sc-section {
+      padding: 110px 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .sc-section:last-of-type { border-bottom: none; }
+    .sc-section--alt { background: var(--bg-1); }
+
+    .sc-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--jade);
+      margin-bottom: 20px;
+    }
+
+    .sc-eyebrow::before {
+      content: ""; width: 26px; height: 1.5px;
+      background: linear-gradient(90deg, var(--jade), transparent);
+      border-radius: 2px;
+    }
+
+    .sc-title {
+      font-size: clamp(32px, 4.2vw, 50px);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1.06;
+      color: var(--text);
+      max-width: 20ch;
+    }
+
+    .sc-title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sc-desc {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 60ch;
+    }
+
+    .sc-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 30px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--ease);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .sc-btn--solid {
+      background: var(--jade);
+      color: #03110e;
+      box-shadow: 0 12px 36px var(--jade-soft);
+    }
+
+    .sc-btn--solid:hover {
+      background: var(--jade-2);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 48px var(--jade-soft);
+    }
+
+    .sc-btn--glass {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--text);
+      border: 1px solid var(--line-2);
+    }
+
+    .sc-btn--glass:hover {
+      background: var(--hover);
+      border-color: var(--jade-line);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       HERO — SAME STRUCTURE, NEW CONTENT
+       ============================================================ */
+    .sc-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 130px 0 110px;
+      background:
+        radial-gradient(ellipse 55% 45% at 50% -8%, var(--glow), transparent 65%),
+        var(--bg);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .sc-hero__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 55% 55% at 50% 30%, #000 0%, transparent 72%);
+      -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 30%, #000 0%, transparent 72%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .sc-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .sc-hero__pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .sc-hero__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--line-2);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-2);
+      letter-spacing: 0.01em;
+    }
+
+    .sc-hero__pill--accent {
+      color: var(--jade);
+      font-family: var(--font-mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 11.5px;
+    }
+
+    .sc-hero__pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--jade);
+      box-shadow: 0 0 0 3px var(--jade-soft);
+    }
+
+    .sc-hero__title {
+      font-size: clamp(40px, 6vw, 76px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.98;
+      color: var(--text);
+      margin: 0 auto 28px;
+      max-width: 16ch;
+    }
+
+    .sc-hero__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      display: inline-block;
+      padding-bottom: 0.06em;
+      background: linear-gradient(120deg, var(--jade) 20%, var(--champagne) 85%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sc-hero__lead {
+      font-size: clamp(17px, 2vw, 19px);
+      line-height: 1.65;
+      color: var(--text-2);
+      max-width: 56ch;
+      margin: 0 auto 40px;
+    }
+
+    .sc-hero__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .sc-hero__stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .sc-hero__stat {
+      background: var(--bg-1);
+      padding: 26px 18px;
+      text-align: center;
+    }
+
+    .sc-hero__stat-num {
+      font-size: clamp(22px, 2.6vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .sc-hero__stat-num span {
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sc-hero__stat-lbl {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       SECTION 1 — ZERO-TRUST ARCHITECTURE (split with diagram)
+       ============================================================ */
+    .sc-zerotrust {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .sc-zerotrust__diagram {
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+      border-radius: var(--r-xl);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      font-family: var(--font-mono);
+    }
+
+    .sc-zerotrust__diagram::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--jade-soft), transparent 70%);
+      pointer-events: none;
+    }
+
+    .sc-zerotrust__layer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--line);
+      background: var(--bg-1);
+      margin-bottom: 10px;
+      position: relative;
+      transition: all var(--ease);
+    }
+
+    .sc-zerotrust__layer:last-child { margin-bottom: 0; }
+
+    .sc-zerotrust__layer:hover {
+      border-color: var(--jade-line);
+      transform: translateX(4px);
+    }
+
+    [dir="rtl"] .sc-zerotrust__layer:hover { transform: translateX(-4px); }
+
+    .sc-zerotrust__layer-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--jade-soft);
+      color: var(--jade);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .sc-zerotrust__layer-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sc-zerotrust__layer-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .sc-zerotrust__layer-desc {
+      font-size: 11.5px;
+      color: var(--text-3);
+      letter-spacing: -0.01em;
+    }
+
+    .sc-zerotrust__layer-status {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 100px;
+      background: var(--jade-soft);
+      color: var(--jade);
+      border: 1px solid var(--jade-line);
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .sc-zerotrust__list {
+      list-style: none;
+      padding: 0;
+      margin: 32px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sc-zerotrust__item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .sc-zerotrust__item-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--jade-soft);
+      color: var(--jade);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .sc-zerotrust__item-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sc-zerotrust__item-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.35;
+    }
+
+    .sc-zerotrust__item-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-3);
+    }
+
+    /* ============================================================
+       SECTION 2 — THREAT INTELLIGENCE (metric cards + feed)
+       ============================================================ */
+    .sc-threat__head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .sc-threat__layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .sc-threat__metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sc-threat__metric {
+      background: var(--bg-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      padding: 26px 28px;
+      transition: all var(--ease);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .sc-threat__metric:hover {
+      border-color: var(--jade-line);
+      background: var(--bg-2);
+      transform: translateX(4px);
+    }
+
+    [dir="rtl"] .sc-threat__metric:hover { transform: translateX(-4px); }
+
+    .sc-threat__metric-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r-md);
+      background: var(--jade-soft);
+      color: var(--jade);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sc-threat__metric-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sc-threat__metric-body { flex: 1; min-width: 0; }
+
+    .sc-threat__metric-num {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .sc-threat__metric-num span {
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sc-threat__metric-lbl {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    .sc-threat__feed {
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .sc-threat__feed-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg-3);
+    }
+
+    .sc-threat__feed-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--jade);
+      box-shadow: 0 0 0 3px var(--jade-soft);
+      animation: threat-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes threat-pulse {
+      0%, 100% { box-shadow: 0 0 0 3px var(--jade-soft); }
+      50% { box-shadow: 0 0 0 6px rgba(52, 224, 196, 0.06); }
+    }
+
+    .sc-threat__feed-title {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-2);
+    }
+
+    .sc-threat__feed-body {
+      padding: 8px 0;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .sc-threat__feed-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      transition: background var(--ease);
+    }
+
+    .sc-threat__feed-row:last-child { border-bottom: none; }
+    .sc-threat__feed-row:hover { background: var(--bg-3); }
+
+    .sc-threat__feed-time {
+      color: var(--text-4);
+      flex-shrink: 0;
+      font-size: 11px;
+      margin-top: 1px;
+      min-width: 62px;
+    }
+
+    .sc-threat__feed-level {
+      flex-shrink: 0;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-top: 1px;
+    }
+
+    .sc-threat__feed-level--info { background: var(--jade-soft); color: var(--jade); border: 1px solid var(--jade-line); }
+    .sc-threat__feed-level--warn { background: var(--champagne-soft); color: var(--champagne); border: 1px solid rgba(242, 208, 164, 0.3); }
+    .sc-threat__feed-level--block { background: rgba(255, 90, 90, 0.1); color: #ff7a7a; border: 1px solid rgba(255, 90, 90, 0.3); }
+
+    .sc-threat__feed-msg {
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       SECTION 3 — DATA PROTECTION (feature rows with numbered markers)
+       ============================================================ */
+    .sc-data__head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 64px;
+    }
+
+    .sc-data__head .sc-title { margin-left: auto; margin-right: auto; }
+    .sc-data__head .sc-desc { margin: 20px auto 0; }
+
+    .sc-data__rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+    }
+
+    .sc-data__row {
+      display: grid;
+      grid-template-columns: 64px 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      background: var(--bg-1);
+      padding: 32px 36px;
+      transition: background var(--ease);
+    }
+
+    .sc-data__row:hover { background: var(--bg-2); }
+
+    .sc-data__row-num {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--jade);
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity var(--ease);
+    }
+
+    .sc-data__row:hover .sc-data__row-num { opacity: 1; }
+
+    .sc-data__row-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+
+    .sc-data__row-title span {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--jade);
+      margin-bottom: 6px;
+    }
+
+    .sc-data__row-desc {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--text-3);
+    }
+
+    /* ============================================================
+       SECTION 4 — ACCESS CONTROL (two column: policy builder + info)
+       ============================================================ */
+    .sc-access {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .sc-access__panel {
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+      border-radius: var(--r-xl);
+      padding: 32px 32px 36px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sc-access__panel::before {
+      content: "";
+      position: absolute;
+      top: -70px;
+      right: -70px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, var(--jade-soft), transparent 70%);
+      pointer-events: none;
+    }
+
+    .sc-access__panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+
+    .sc-access__panel-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-2);
+    }
+
+    .sc-access__panel-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--jade-soft);
+      color: var(--jade);
+      border: 1px solid var(--jade-line);
+    }
+
+    .sc-access__policy {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .sc-access__policy-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      transition: all var(--ease);
+    }
+
+    .sc-access__policy-row:hover {
+      border-color: var(--jade-line);
+    }
+
+    .sc-access__policy-role {
+      font-weight: 700;
+      color: var(--text);
+      min-width: 92px;
+    }
+
+    .sc-access__policy-arrow {
+      color: var(--jade);
+      font-weight: 700;
+    }
+
+    .sc-access__policy-resource {
+      color: var(--text-3);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sc-access__policy-status {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: var(--jade-soft);
+      color: var(--jade);
+      border: 1px solid var(--jade-line);
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .sc-access__list {
+      list-style: none;
+      padding: 0;
+      margin: 32px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .sc-access__item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .sc-access__item-icon {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--jade-soft);
+      color: var(--jade);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .sc-access__item-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sc-access__item-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.35;
+    }
+
+    .sc-access__item-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-3);
+    }
+
+    /* ============================================================
+       SECTION 5 — AUDIT & REPORTING (stat strip + checklist)
+       ============================================================ */
+    .sc-audit {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .sc-audit__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .sc-audit__stat {
+      background: var(--bg-1);
+      padding: 30px 24px;
+      text-align: center;
+    }
+
+    .sc-audit__stat-num {
+      font-size: clamp(28px, 3.4vw, 38px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .sc-audit__stat-num span {
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sc-audit__stat-lbl {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-3);
+      line-height: 1.45;
+    }
+
+    .sc-audit__checks {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .sc-audit__check {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14.5px;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
+    .sc-audit__check svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: var(--jade);
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-top: 1px;
+    }
+
+    /* ============================================================
+       SECTION 6 — CTA (same pattern)
+       ============================================================ */
+    .sc-cta {
+      position: relative;
+      padding: 110px 0;
+      background:
+        radial-gradient(ellipse 55% 90% at 50% 120%, var(--jade-soft), transparent 70%),
+        var(--bg-1);
+      text-align: center;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .sc-cta__title {
+      font-size: clamp(34px, 4.8vw, 54px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      color: var(--text);
+      max-width: 20ch;
+      margin: 0 auto 20px;
+    }
+
+    .sc-cta__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sc-cta__desc {
+      font-size: 18px;
+      color: var(--text-2);
+      max-width: 52ch;
+      margin: 0 auto 38px;
+      line-height: 1.65;
+    }
+
+    .sc-cta__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       FOOTER (identical to index.html)
+       ============================================================ */
+    .site-footer {
+      background: var(--bg-1);
+      border-top: 1px solid var(--line);
+      padding: 76px 0 0;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1.7fr repeat(4, 1fr);
+      gap: 44px;
+      padding-bottom: 64px;
+    }
+
+    .footer__brand { max-width: 320px; }
+    .footer__brand .brand-logo { margin-bottom: 20px; }
+
+    .footer__tagline {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--text-3);
+      margin-bottom: 26px;
+    }
+
+    .footer__social { display: flex; gap: 10px; }
+
+    .footer__social a {
+      width: 42px; height: 42px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-3);
+      transition: all var(--ease);
+    }
+
+    .footer__social a:hover {
+      color: var(--jade);
+      background: var(--hover);
+      border-color: var(--jade-line);
+      transform: translateY(-2px);
+    }
+
+    .footer__social svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .footer__col-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+
+    .footer__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .footer__list a {
+      font-size: 14.5px;
+      color: var(--text-3);
+      transition: color var(--ease);
+      line-height: 1.5;
+    }
+
+    .footer__list a:hover { color: var(--jade); }
+
+    .footer__bottom {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer__copy { font-size: 13.5px; color: var(--text-4); }
+    .footer__legal { display: flex; gap: 26px; flex-wrap: wrap; }
+    .footer__legal a { font-size: 13.5px; color: var(--text-4); transition: color var(--ease); }
+    .footer__legal a:hover { color: var(--jade); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    /* Tablet / iPad / iPad Pro / Mobile — All iPad models & orientations (screens <= 1400px) */
+    @media (max-width: 1400px) {
+      .merchant-nav__list { display: none !important; }
+      .merchant-nav__actions { display: none !important; }
+      .merchant-nav__mobile-toggle { display: flex !important; margin-left: auto; }
+      [dir="rtl"] .merchant-nav__mobile-toggle { margin-left: 0; margin-right: auto; }
+      .merchant-nav__inner { height: 72px; padding: 0 20px; }
+
+      .footer__grid { grid-template-columns: 1.4fr repeat(2, 1fr); row-gap: 50px; }
+      .sc-hero { padding: 96px 0 88px; }
+      .sc-hero__stats { grid-template-columns: repeat(2, 1fr); }
+
+      .sc-zerotrust { grid-template-columns: 1fr; gap: 44px; }
+      .sc-threat__layout { grid-template-columns: 1fr; }
+      .sc-data__row { grid-template-columns: 48px 1fr; gap: 20px; }
+      .sc-data__row-desc { grid-column: 2; }
+      .sc-access { grid-template-columns: 1fr; gap: 44px; }
+      .sc-audit { grid-template-columns: 1fr; gap: 44px; }
+    }
+    @media (max-width: 768px) {
+      .sc-section { padding: 84px 0; }
+      .sc-hero { padding: 80px 0 72px; }
+      .sc-hero__actions { margin-bottom: 52px; }
+
+      .sc-threat__head { flex-direction: column; align-items: flex-start; }
+      .sc-data__row { grid-template-columns: 1fr; gap: 14px; padding: 26px 24px; }
+      .sc-data__row-desc { grid-column: 1; }
+      .sc-data__row-num { font-size: 26px; }
+
+      .sc-audit__stats { grid-template-columns: 1fr 1fr; }
+
+      .footer__grid { grid-template-columns: 1fr 1fr; gap: 42px; padding-bottom: 52px; }
+      .footer__brand { grid-column: 1 / -1; max-width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .merchant-nav__inner { height: 66px; padding: 0 16px; gap: 8px; }
+      .merchant-nav__mobile-panel { top: 66px; height: calc(100vh - 66px); height: calc(100dvh - 66px); max-height: calc(100dvh - 66px); padding: 16px 20px 80px; }
+      .brand-logo { font-size: 19px; gap: 8px; }
+      .brand-logo__mark { width: 25px; height: 25px; }
+      .merchant-nav__actions { gap: 6px; }
+      .merchant-nav__icon-btn { width: 38px; height: 38px; }
+      .merchant-nav__mobile-toggle { width: 38px; height: 38px; }
+
+      .container { padding: 0 18px; }
+      .sc-hero__inner { padding: 0 18px; }
+      .sc-hero__pills { gap: 8px; margin-bottom: 24px; }
+      .sc-hero__pill { font-size: 11.5px; padding: 6px 13px; }
+      .sc-hero__actions { flex-direction: column; align-items: stretch; margin-bottom: 44px; }
+      .sc-hero__actions .sc-btn { width: 100%; }
+      .sc-hero__stats { grid-template-columns: 1fr; max-width: 360px; }
+
+      .sc-threat__feed-row { flex-wrap: wrap; }
+      .sc-threat__feed-msg { flex-basis: 100%; padding-left: 0; }
+
+      .sc-access__panel { padding: 22px 16px 26px; }
+      .sc-access__policy-row {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+          "role   .        status"
+          "arrow  resource resource";
+        row-gap: 8px;
+        column-gap: 10px;
+        align-items: center;
+        padding: 12px 14px;
+      }
+      .sc-access__policy-role {
+        grid-area: role;
+        min-width: 0;
+        font-size: 13px;
+      }
+      .sc-access__policy-status {
+        grid-area: status;
+        margin-left: auto;
+      }
+      .sc-access__policy-arrow {
+        grid-area: arrow;
+      }
+      .sc-access__policy-resource {
+        grid-area: resource;
+        font-size: 11.5px;
+        word-break: break-word;
+      }
+
+      .sc-cta { padding: 84px 0; }
+      .sc-cta__actions { flex-direction: column; width: 100%; }
+      .sc-cta__actions .sc-btn { width: 100%; }
+
+      .footer__grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+
+    @media (max-width: 400px) {
+      .merchant-nav__icon-btn--rtl { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER / NAVBAR (identical)
+       ============================================================ -->
+  <header class="merchant-nav" role="banner">
+    <nav class="merchant-nav__inner" aria-label="Main navigation">
+
+      <a href="index.html" class="brand-logo" aria-label="MerchantPay home">
+        <svg class="brand-logo__mark" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M12.927 16.371a1.47 1.47 0 0 0 .061 2.027l68.595 68.594c.555.555 1.446.59 2.026.062 10.058-9.152 16.372-22.348 16.372-37.018C99.98 22.402 77.579 0 49.945 0c-14.67 0-27.866 6.313-37.018 16.371M4.353 29.39a1.47 1.47 0 0 0 .309 1.648L68.943 95.32c.434.434 1.09.562 1.648.308a50 50 0 0 0 4.335-2.227c.834-.482.962-1.62.28-2.3L8.882 24.773c-.68-.68-1.818-.553-2.3.281a50 50 0 0 0-2.228 4.334m-3.9 18.407a1.48 1.48 0 0 1-.432-1.14q.2-2.986.74-5.866c.215-1.15 1.62-1.55 2.448-.722l56.703 56.704c.828.827.429 2.233-.722 2.448a50 50 0 0 1-5.865.74 1.48 1.48 0 0 1-1.14-.433zm3.48 13.963c-1.033-1.033-2.7-.143-2.322 1.268C6.221 80.22 19.761 93.76 36.954 98.37c1.41.379 2.3-1.289 1.268-2.322z"/>
+        </svg>
+        <span>Merchant<span class="brand-logo__text-accent">Pay</span></span>
+      </a>
+
+      <ul class="merchant-nav__list" role="menubar">
+
+        <li class="merchant-nav__item" role="none" data-dropdown>
+          <button class="merchant-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-home">
+            Home
+            <svg class="merchant-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__dropdown" id="dropdown-home" role="menu">
+            <a href="index.html" class="merchant-nav__dropdown-link" role="menuitem">Home 1</a>
+            <a href="home-2.html" class="merchant-nav__dropdown-link" role="menuitem">Home 2</a>
+          </div>
+        </li>
+
+        <li class="merchant-nav__item" role="none"><a href="about.html" class="merchant-nav__link" role="menuitem">About Us</a></li>
+        <li class="merchant-nav__item" role="none"><a href="payment-solutions.html" class="merchant-nav__link" role="menuitem">Payment Solutions</a></li>
+        <li class="merchant-nav__item" role="none"><a href="business-types.html" class="merchant-nav__link" role="menuitem">Business Types</a></li>
+        <li class="merchant-nav__item" role="none"><a href="pricing.html" class="merchant-nav__link" role="menuitem">Pricing</a></li>
+        <li class="merchant-nav__item" role="none"><a href="security.html" class="merchant-nav__link is-active" role="menuitem" aria-current="page">Security</a></li>
+        <li class="merchant-nav__item" role="none"><a href="contact.html" class="merchant-nav__link" role="menuitem">Contact</a></li>
+
+        <li class="merchant-nav__item" role="none" data-dropdown>
+          <button class="merchant-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-dashboard">
+            Dashboard
+            <svg class="merchant-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__dropdown" id="dropdown-dashboard" role="menu">
+            <a href="user-dashboard.html" class="merchant-nav__dropdown-link" role="menuitem">User Dashboard</a>
+            <a href="admin-dashboard.html" class="merchant-nav__dropdown-link" role="menuitem">Admin Dashboard</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="merchant-nav__actions">
+        <button class="merchant-nav__icon-btn" data-theme-toggle aria-label="Toggle dark and light mode" title="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+
+        <button class="merchant-nav__icon-btn merchant-nav__icon-btn--rtl" data-rtl-toggle aria-label="Toggle right-to-left direction" title="Toggle RTL">
+          <span class="merchant-nav__rtl-label">RTL</span>
+        </button>
+
+        <a href="login.html" class="merchant-nav__action-link">Login</a>
+      </div>
+
+      <button class="merchant-nav__mobile-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-panel" data-mobile-toggle>
+        <svg class="icon-menu" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1" y="3.5" width="14" height="1.5" rx="0.75"/>
+          <rect x="1" y="7.25" width="14" height="1.5" rx="0.75"/>
+          <rect x="1" y="11" width="14" height="1.5" rx="0.75"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 1 1-1.06-1.06L6.94 8 3.47 4.53a.75.75 0 0 1 0-1.06Z"/>
+        </svg>
+      </button>
+
+    </nav>
+
+    <div class="merchant-nav__mobile-panel" id="mobile-panel" role="dialog" aria-label="Mobile navigation">
+      <ul style="list-style:none;padding:0;margin:0;">
+
+        <li class="merchant-nav__mobile-item" data-mobile-dropdown>
+          <button class="merchant-nav__mobile-trigger" aria-expanded="false">
+            Home
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__mobile-submenu">
+            <a href="index.html">Home 1</a>
+            <a href="home-2.html">Home 2</a>
+          </div>
+        </li>
+
+        <li class="merchant-nav__mobile-item"><a href="about.html" class="merchant-nav__mobile-link">About Us</a></li>
+        <li class="merchant-nav__mobile-item"><a href="payment-solutions.html" class="merchant-nav__mobile-link">Payment Solutions</a></li>
+        <li class="merchant-nav__mobile-item"><a href="business-types.html" class="merchant-nav__mobile-link">Business Types</a></li>
+        <li class="merchant-nav__mobile-item"><a href="pricing.html" class="merchant-nav__mobile-link">Pricing</a></li>
+        <li class="merchant-nav__mobile-item"><a href="security.html" class="merchant-nav__mobile-link is-active" aria-current="page">Security</a></li>
+        <li class="merchant-nav__mobile-item"><a href="contact.html" class="merchant-nav__mobile-link">Contact</a></li>
+
+        <li class="merchant-nav__mobile-item" data-mobile-dropdown>
+          <button class="merchant-nav__mobile-trigger" aria-expanded="false">
+            Dashboard
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__mobile-submenu">
+            <a href="user-dashboard.html">User Dashboard</a>
+            <a href="admin-dashboard.html">Admin Dashboard</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="merchant-nav__mobile-tools">
+        <button class="merchant-nav__icon-btn" data-theme-toggle aria-label="Toggle dark and light mode">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <span>Theme</span>
+        </button>
+        <button class="merchant-nav__icon-btn" data-rtl-toggle aria-label="Toggle right-to-left direction">
+          <span class="merchant-nav__rtl-label">RTL</span>
+          <span>Direction</span>
+        </button>
+      </div>
+
+      <div class="merchant-nav__mobile-actions">
+        <a href="login.html" class="action-login">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT — SECURITY PAGE (HERO + 6 SECTIONS)
+       ============================================================ -->
+  <main id="main-content">
+
+    <!-- ============ HERO — same structure, new content ============ -->
+    <section class="sc-hero" aria-labelledby="sc-hero-title">
+      <div class="sc-hero__grid" aria-hidden="true"></div>
+      <div class="sc-hero__inner">
+        <div class="sc-hero__pills">
+          <span class="sc-hero__pill sc-hero__pill--accent">
+            <span class="sc-hero__pill-dot" aria-hidden="true"></span>
+            Security
+          </span>
+          <span class="sc-hero__pill">Zero-trust · HSM-backed · Continuously monitored</span>
+        </div>
+
+        <h1 class="sc-hero__title" id="sc-hero-title">
+          Trust is earned <em>one transaction at a time.</em>
+        </h1>
+
+        <p class="sc-hero__lead">
+          Our security program is built around a simple premise: assume nothing,
+          verify everything. From request ingress to settlement, every layer
+          is independently defended, encrypted, and audited.
+        </p>
+
+        <div class="sc-hero__actions">
+          <a href="trust-center.html" class="sc-btn sc-btn--solid">Explore trust center</a>
+          <a href="contact.html" class="sc-btn sc-btn--glass">Contact security team →</a>
+        </div>
+
+        <div class="sc-hero__stats">
+          <div class="sc-hero__stat">
+            <div class="sc-hero__stat-num"><span>6</span></div>
+            <div class="sc-hero__stat-lbl">Independent audits per year</div>
+          </div>
+          <div class="sc-hero__stat">
+            <div class="sc-hero__stat-num"><span>0</span></div>
+            <div class="sc-hero__stat-lbl">Data breaches to date</div>
+          </div>
+          <div class="sc-hero__stat">
+            <div class="sc-hero__stat-num"><span>100</span>%</div>
+            <div class="sc-hero__stat-lbl">MFA enforced internally</div>
+          </div>
+          <div class="sc-hero__stat">
+            <div class="sc-hero__stat-num"><span>1.2</span>M</div>
+            <div class="sc-hero__stat-lbl">Threats blocked monthly</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 1 — ZERO-TRUST ARCHITECTURE ============ -->
+    <section class="sc-section" aria-labelledby="sc-zerotrust-title">
+      <div class="container">
+        <div class="sc-zerotrust">
+          <div>
+            <div class="sc-eyebrow">Architecture</div>
+            <h2 class="sc-title" id="sc-zerotrust-title">
+              Zero-trust, <em>every layer.</em>
+            </h2>
+            <p class="sc-desc">
+              No implicit trust between services. Every request — internal or
+              external — is authenticated, authorized, and encrypted before it
+              touches a single record. Compromise of one layer doesn't mean
+              compromise of the whole.
+            </p>
+            <ul class="sc-zerotrust__list">
+              <li class="sc-zerotrust__item">
+                <span class="sc-zerotrust__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="sc-zerotrust__item-title">Mutual TLS between every service</div>
+                  <div class="sc-zerotrust__item-desc">Service-to-service traffic uses short-lived mTLS certs, rotated every 24 hours.</div>
+                </div>
+              </li>
+              <li class="sc-zerotrust__item">
+                <span class="sc-zerotrust__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="sc-zerotrust__item-title">Least-privilege access by default</div>
+                  <div class="sc-zerotrust__item-desc">No service can talk to another without an explicit, scoped, auditable grant.</div>
+                </div>
+              </li>
+              <li class="sc-zerotrust__item">
+                <span class="sc-zerotrust__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="sc-zerotrust__item-title">Continuous verification</div>
+                  <div class="sc-zerotrust__item-desc">Tokens expire in minutes. Sessions re-authenticate on every privilege escalation.</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sc-zerotrust__diagram" aria-label="Zero-trust architecture layers">
+            <div class="sc-zerotrust__layer">
+              <div class="sc-zerotrust__layer-num">01</div>
+              <div class="sc-zerotrust__layer-body">
+                <div class="sc-zerotrust__layer-name">Edge / WAF</div>
+                <div class="sc-zerotrust__layer-desc">DDoS mitigation · geo-blocking · rate limits</div>
+              </div>
+              <span class="sc-zerotrust__layer-status">Active</span>
+            </div>
+            <div class="sc-zerotrust__layer">
+              <div class="sc-zerotrust__layer-num">02</div>
+              <div class="sc-zerotrust__layer-body">
+                <div class="sc-zerotrust__layer-name">API Gateway</div>
+                <div class="sc-zerotrust__layer-desc">OAuth2 · mTLS · request signing</div>
+              </div>
+              <span class="sc-zerotrust__layer-status">Active</span>
+            </div>
+            <div class="sc-zerotrust__layer">
+              <div class="sc-zerotrust__layer-num">03</div>
+              <div class="sc-zerotrust__layer-body">
+                <div class="sc-zerotrust__layer-name">Service Mesh</div>
+                <div class="sc-zerotrust__layer-desc">Policy enforcement · traffic inspection</div>
+              </div>
+              <span class="sc-zerotrust__layer-status">Active</span>
+            </div>
+            <div class="sc-zerotrust__layer">
+              <div class="sc-zerotrust__layer-num">04</div>
+              <div class="sc-zerotrust__layer-body">
+                <div class="sc-zerotrust__layer-name">Data Layer</div>
+                <div class="sc-zerotrust__layer-desc">Row-level encryption · field masking</div>
+              </div>
+              <span class="sc-zerotrust__layer-status">Active</span>
+            </div>
+            <div class="sc-zerotrust__layer">
+              <div class="sc-zerotrust__layer-num">05</div>
+              <div class="sc-zerotrust__layer-body">
+                <div class="sc-zerotrust__layer-name">Key Vault</div>
+                <div class="sc-zerotrust__layer-desc">FIPS 140-2 HSM · key rotation 90d</div>
+              </div>
+              <span class="sc-zerotrust__layer-status">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — THREAT INTELLIGENCE ============ -->
+    <section class="sc-section sc-section--alt" aria-labelledby="sc-threat-title">
+      <div class="container">
+        <div class="sc-threat__head">
+          <div>
+            <div class="sc-eyebrow">Threat intelligence</div>
+            <h2 class="sc-title" id="sc-threat-title">
+              Live defense. <em>Every second.</em>
+            </h2>
+          </div>
+          <p class="sc-desc" style="max-width:42ch;">
+            Our security operations center monitors network-wide signals and blocks
+            threats before they reach your checkout. A sample of what we see in a typical hour.
+          </p>
+        </div>
+
+        <div class="sc-threat__layout">
+          <div class="sc-threat__metrics">
+            <div class="sc-threat__metric">
+              <div class="sc-threat__metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7Z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div class="sc-threat__metric-body">
+                <div class="sc-threat__metric-num"><span>412</span>K</div>
+                <div class="sc-threat__metric-lbl">Bot requests blocked (last 24h)</div>
+              </div>
+            </div>
+            <div class="sc-threat__metric">
+              <div class="sc-threat__metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+              </div>
+              <div class="sc-threat__metric-body">
+                <div class="sc-threat__metric-num"><span>2,847</span></div>
+                <div class="sc-threat__metric-lbl">Credential-stuffing attempts thwarted</div>
+              </div>
+            </div>
+            <div class="sc-threat__metric">
+              <div class="sc-threat__metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="sc-threat__metric-body">
+                <div class="sc-threat__metric-num"><span>94</span></div>
+                <div class="sc-threat__metric-lbl">Distinct attack signatures detected</div>
+              </div>
+            </div>
+            <div class="sc-threat__metric">
+              <div class="sc-threat__metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="m12 7 5 5-5 5"/></svg>
+              </div>
+              <div class="sc-threat__metric-body">
+                <div class="sc-threat__metric-num">&lt; <span>220</span>ms</div>
+                <div class="sc-threat__metric-lbl">Mean time to mitigate (MTTM)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sc-threat__feed">
+            <div class="sc-threat__feed-head">
+              <span class="sc-threat__feed-dot" aria-hidden="true"></span>
+              <span class="sc-threat__feed-title">Live threat feed · last 60 minutes</span>
+            </div>
+            <div class="sc-threat__feed-body">
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">14:32:08</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--block">Blocked</span>
+                <span class="sc-threat__feed-msg">Tor exit node attempted checkout · IP 185.220.x.x · blocked at edge</span>
+              </div>
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">14:29:44</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--info">Info</span>
+                <span class="sc-threat__feed-msg">BIN attack pattern detected · 42 rapid auth attempts · throttled to 1/sec</span>
+              </div>
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">14:21:17</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--block">Blocked</span>
+                <span class="sc-threat__feed-msg">Headless browser fingerprint · user-agent mismatch · request dropped</span>
+              </div>
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">14:14:52</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--warn">Warn</span>
+                <span class="sc-threat__feed-msg">New device fingerprint on high-value account · step-up auth triggered</span>
+              </div>
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">14:08:31</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--block">Blocked</span>
+                <span class="sc-threat__feed-msg">Geo-velocity anomaly · card used in US then SG within 4 min · blocked</span>
+              </div>
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">13:57:09</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--info">Info</span>
+                <span class="sc-threat__feed-msg">API key rotated automatically · rotation policy 30-day threshold hit</span>
+              </div>
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">13:49:22</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--block">Blocked</span>
+                <span class="sc-threat__feed-msg">Known bad IP (threat intel feed) attempted webhook endpoint · rejected</span>
+              </div>
+              <div class="sc-threat__feed-row">
+                <span class="sc-threat__feed-time">13:38:55</span>
+                <span class="sc-threat__feed-level sc-threat__feed-level--warn">Warn</span>
+                <span class="sc-threat__feed-msg">Unusual refund velocity on merchant acct · flagged for manual review</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — DATA PROTECTION ============ -->
+    <section class="sc-section" aria-labelledby="sc-data-title">
+      <div class="container">
+        <div class="sc-data__head">
+          <div class="sc-eyebrow" style="justify-content:center;">Data protection</div>
+          <h2 class="sc-title" id="sc-data-title">
+            Your data is <em>never ours to lose.</em>
+          </h2>
+          <p class="sc-desc">
+            We design our systems so that a breach of one component can't expose
+            customer data. Here's how each layer is protected.
+          </p>
+        </div>
+
+        <div class="sc-data__rows">
+
+          <div class="sc-data__row">
+            <div class="sc-data__row-num">01</div>
+            <div class="sc-data__row-title">
+              <span>Tokenization</span>
+              No raw card numbers
+            </div>
+            <p class="sc-data__row-desc">
+              Card numbers are tokenized at the edge before leaving the customer's browser.
+              Our systems only ever see tokens, which are useless if exfiltrated.
+            </p>
+          </div>
+
+          <div class="sc-data__row">
+            <div class="sc-data__row-num">02</div>
+            <div class="sc-data__row-title">
+              <span>Field-level encryption</span>
+              AES-256-GCM per record
+            </div>
+            <p class="sc-data__row-desc">
+              PII fields are individually encrypted with per-record keys managed
+              in an HSM. Even a full DB dump yields only ciphertext.
+            </p>
+          </div>
+
+          <div class="sc-data__row">
+            <div class="sc-data__row-num">03</div>
+            <div class="sc-data__row-title">
+              <span>Key isolation</span>
+              Separate key per tenant
+            </div>
+            <p class="sc-data__row-desc">
+              Every merchant has isolated encryption keys. Compromise of one
+              merchant's keys cannot decrypt another merchant's data.
+            </p>
+          </div>
+
+          <div class="sc-data__row">
+            <div class="sc-data__row-num">04</div>
+            <div class="sc-data__row-title">
+              <span>Data residency</span>
+              Regional by choice
+            </div>
+            <p class="sc-data__row-desc">
+              Choose US, EU, or APAC data residency. Your data never leaves your
+              chosen region, and is never replicated across borders.
+            </p>
+          </div>
+
+          <div class="sc-data__row">
+            <div class="sc-data__row-num">05</div>
+            <div class="sc-data__row-title">
+              <span>Retention limits</span>
+              Minimal by default
+            </div>
+            <p class="sc-data__row-desc">
+              We retain only what's required by law and card scheme rules. Everything
+              else is purged on a defined schedule — 12 months by default.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 — ACCESS CONTROL ============ -->
+    <section class="sc-section sc-section--alt" aria-labelledby="sc-access-title">
+      <div class="container">
+        <div class="sc-access">
+          <div class="sc-access__panel" aria-label="Role-based access policy example">
+            <div class="sc-access__panel-head">
+              <span class="sc-access__panel-title">RBAC policy · default tenant</span>
+              <span class="sc-access__panel-tag">Enforced</span>
+            </div>
+            <div class="sc-access__policy">
+              <div class="sc-access__policy-row">
+                <span class="sc-access__policy-role">admin</span>
+                <span class="sc-access__policy-arrow">→</span>
+                <span class="sc-access__policy-resource">* · full access</span>
+                <span class="sc-access__policy-status">MFA</span>
+              </div>
+              <div class="sc-access__policy-row">
+                <span class="sc-access__policy-role">analyst</span>
+                <span class="sc-access__policy-arrow">→</span>
+                <span class="sc-access__policy-resource">reports:read, payments:read</span>
+                <span class="sc-access__policy-status">MFA</span>
+              </div>
+              <div class="sc-access__policy-row">
+                <span class="sc-access__policy-role">developer</span>
+                <span class="sc-access__policy-arrow">→</span>
+                <span class="sc-access__policy-resource">api_keys:read, webhooks:write</span>
+                <span class="sc-access__policy-status">MFA</span>
+              </div>
+              <div class="sc-access__policy-row">
+                <span class="sc-access__policy-role">support</span>
+                <span class="sc-access__policy-arrow">→</span>
+                <span class="sc-access__policy-resource">disputes:read, refunds:create</span>
+                <span class="sc-access__policy-status">MFA</span>
+              </div>
+              <div class="sc-access__policy-row">
+                <span class="sc-access__policy-role">readonly</span>
+                <span class="sc-access__policy-arrow">→</span>
+                <span class="sc-access__policy-resource">dashboard:view</span>
+                <span class="sc-access__policy-status">MFA</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sc-eyebrow">Access control</div>
+            <h2 class="sc-title" id="sc-access-title">
+              Nobody gets <em>more access than they need.</em>
+            </h2>
+            <p class="sc-desc">
+              Every action inside MerchantPay is scoped, role-gated, and logged.
+              There is no "super admin" without MFA, and no internal engineer can
+              view card data without a time-limited, audited break-glass approval.
+            </p>
+            <ul class="sc-access__list">
+              <li class="sc-access__item">
+                <span class="sc-access__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="sc-access__item-title">SSO + SCIM provisioning</div>
+                  <div class="sc-access__item-desc">SAML and OIDC SSO for all team members, with automatic SCIM user lifecycle sync.</div>
+                </div>
+              </li>
+              <li class="sc-access__item">
+                <span class="sc-access__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="sc-access__item-title">Hardware-key MFA</div>
+                  <div class="sc-access__item-desc">Support for FIDO2 hardware keys on every account. SMS OTP is not permitted.</div>
+                </div>
+              </li>
+              <li class="sc-access__item">
+                <span class="sc-access__item-icon"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span>
+                <div>
+                  <div class="sc-access__item-title">Just-in-time elevation</div>
+                  <div class="sc-access__item-desc">Elevated privileges are granted for a defined window and revoked automatically.</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 5 — AUDIT & REPORTING ============ -->
+    <section class="sc-section" aria-labelledby="sc-audit-title">
+      <div class="container">
+        <div class="sc-audit">
+          <div>
+            <div class="sc-audit__stats">
+              <div class="sc-audit__stat">
+                <div class="sc-audit__stat-num"><span>100</span>%</div>
+                <div class="sc-audit__stat-lbl">Admin actions logged</div>
+              </div>
+              <div class="sc-audit__stat">
+                <div class="sc-audit__stat-num"><span>7</span>y</div>
+                <div class="sc-audit__stat-lbl">Log retention period</div>
+              </div>
+              <div class="sc-audit__stat">
+                <div class="sc-audit__stat-num">&lt; <span>5</span>m</div>
+                <div class="sc-audit__stat-lbl">Log query response time</div>
+              </div>
+              <div class="sc-audit__stat">
+                <div class="sc-audit__stat-num"><span>50</span>+</div>
+                <div class="sc-audit__stat-lbl">Exportable event types</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sc-eyebrow">Audit &amp; reporting</div>
+            <h2 class="sc-title" id="sc-audit-title">
+              Full visibility. <em>Nothing hidden.</em>
+            </h2>
+            <p class="sc-desc">
+              Every authentication, authorization decision, and data mutation is
+              written to an immutable audit log. You can search, filter, and export
+              events through the dashboard or the API.
+            </p>
+            <ul class="sc-audit__checks">
+              <li class="sc-audit__check">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Immutable audit log with cryptographic integrity verification</span>
+              </li>
+              <li class="sc-audit__check">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Streaming webhook events for every authorization decision</span>
+              </li>
+              <li class="sc-audit__check">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>CSV / JSON export with 7-year retention for compliance</span>
+              </li>
+              <li class="sc-audit__check">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>SIEM integration via Splunk, Datadog, and generic syslog</span>
+              </li>
+              <li class="sc-audit__check">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+                <span>Real-time alerting on privilege escalation and policy violations</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — CTA ============ -->
+    <section class="sc-cta" aria-labelledby="sc-cta-title">
+      <div class="container">
+        <h2 class="sc-cta__title" id="sc-cta-title">
+          Want to see <em>our full security posture?</em>
+        </h2>
+        <p class="sc-cta__desc">
+          Current certificates, pen test summaries, subprocessor list, and
+          our security whitepaper are all available in the trust center —
+          no NDA needed for the basics.
+        </p>
+        <div class="sc-cta__actions">
+          <a href="trust-center.html" class="sc-btn sc-btn--solid">Open trust center</a>
+          <a href="contact.html" class="sc-btn sc-btn--glass">Talk to security team</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (identical)
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a href="index.html" class="brand-logo" aria-label="MerchantPay home">
+            <svg class="brand-logo__mark" viewBox="0 0 100 100" aria-hidden="true">
+              <path d="M12.927 16.371a1.47 1.47 0 0 0 .061 2.027l68.595 68.594c.555.555 1.446.59 2.026.062 10.058-9.152 16.372-22.348 16.372-37.018C99.98 22.402 77.579 0 49.945 0c-14.67 0-27.866 6.313-37.018 16.371M4.353 29.39a1.47 1.47 0 0 0 .309 1.648L68.943 95.32c.434.434 1.09.562 1.648.308a50 50 0 0 0 4.335-2.227c.834-.482.962-1.62.28-2.3L8.882 24.773c-.68-.68-1.818-.553-2.3.281a50 50 0 0 0-2.228 4.334m-3.9 18.407a1.48 1.48 0 0 1-.432-1.14q.2-2.986.74-5.866c.215-1.15 1.62-1.55 2.448-.722l56.703 56.704c.828.827.429 2.233-.722 2.448a50 50 0 0 1-5.865.74 1.48 1.48 0 0 1-1.14-.433zm3.48 13.963c-1.033-1.033-2.7-.143-2.322 1.268C6.221 80.22 19.761 93.76 36.954 98.37c1.41.379 2.3-1.289 1.268-2.322z"/>
+            </svg>
+            <span>Merchant<span class="brand-logo__text-accent">Pay</span></span>
+          </a>
+          <p class="footer__tagline">
+            The modern payment platform for businesses that want to move fast, stay secure,
+            and keep more of what they earn.
+          </p>
+          <div class="footer__social">
+            <a href="https://x.com" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.3l-4.9-6.4L6.2 22H3l7.3-8.4L2.4 2h6.4l4.4 5.9Zm-1.1 18h1.7L7.3 3.8H5.5Z"/></svg>
+            </a>
+            <a href="https://github.com" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.7.2 2.9.1 3.2.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+            </a>
+            <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.2 2.4 4.2 5.4v6.2ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.4H3.5V9h3.6v11.4Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Product</h4>
+          <ul class="footer__list">
+            <li><a href="payment-solutions.html">Payment Solutions</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="security.html">Security</a></li>
+            <li><a href="business-types.html">Business Types</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Company</h4>
+          <ul class="footer__list">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="press.html">Press</a></li>
+            <li><a href="partners.html">Partners</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Dashboards</h4>
+          <ul class="footer__list">
+            <li><a href="user-dashboard.html">User Dashboard</a></li>
+            <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Create account</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Resources</h4>
+          <ul class="footer__list">
+            <li><a href="docs.html">Documentation</a></li>
+            <li><a href="developers.html">Developers</a></li>
+            <li><a href="status.html">System Status</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="support.html">Support</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 MerchantPay, Inc. All rights reserved.</p>
+        <div class="footer__legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="legal.html">Legal</a>
+          <a href="cookies.html">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT — theme, RTL, dropdowns, mobile menu
+       ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* Active Navigation Highlighting */
+      function setActiveNav() {
+        const nav = document.querySelector('.merchant-nav');
+        if (!nav) return;
+
+        let rawPath = window.location.pathname || '';
+        if (rawPath.endsWith('/') && rawPath.length > 1) {
+          rawPath = rawPath.slice(0, -1);
+        }
+        let page = rawPath.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+        if (!page || page === '' || page === 'index') {
+          page = 'index.html';
+        } else if (!page.includes('.')) {
+          page = page + '.html';
+        }
+
+        const validPages = [
+          'index.html', 'home-2.html', 'about.html', 'payment-solutions.html',
+          'business-types.html', 'pricing.html', 'security.html', 'contact.html',
+          'user-dashboard.html', 'admin-dashboard.html'
+        ];
+        if (!validPages.includes(page)) return;
+
+        // Clear previous active states
+        nav.querySelectorAll('.merchant-nav__link, .merchant-nav__dropdown-link, .merchant-nav__mobile-link, .merchant-nav__mobile-trigger, .merchant-nav__mobile-submenu a').forEach(function (el) {
+          el.removeAttribute('aria-current');
+          el.classList.remove('is-active');
+        });
+
+        // 1. Desktop Links
+        nav.querySelectorAll('.merchant-nav__list a[href]').forEach(function (link) {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          const hrefClean = href.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+          if (hrefClean === page) {
+            link.setAttribute('aria-current', 'page');
+            link.classList.add('is-active');
+
+            const parentDropdown = link.closest('.merchant-nav__dropdown');
+            if (parentDropdown) {
+              const trigger = parentDropdown.closest('.merchant-nav__item')?.querySelector('.merchant-nav__link');
+              if (trigger) {
+                trigger.setAttribute('aria-current', 'page');
+                trigger.classList.add('is-active');
+              }
+            }
+          }
+        });
+
+        // 2. Mobile Links
+        nav.querySelectorAll('.merchant-nav__mobile-panel a[href]').forEach(function (link) {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          const hrefClean = href.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+          if (hrefClean === page) {
+            link.setAttribute('aria-current', 'page');
+            link.classList.add('is-active');
+
+            const parentSubmenu = link.closest('.merchant-nav__mobile-submenu');
+            if (parentSubmenu) {
+              const trigger = parentSubmenu.closest('.merchant-nav__mobile-item')?.querySelector('.merchant-nav__mobile-trigger');
+              if (trigger) {
+                trigger.setAttribute('aria-current', 'page');
+                trigger.classList.add('is-active');
+              }
+            }
+          }
+        });
+      }
+      setActiveNav();
+
+      /* Theme */
+      const root = document.documentElement;
+      const THEME_KEY = 'merchantpay-theme';
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        });
+      }
+
+      (function initTheme() {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+        if (saved === 'dark' || saved === 'light') {
+          applyTheme(saved);
+        } else {
+          const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          applyTheme(prefersLight ? 'light' : 'dark');
+        }
+      })();
+
+      document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const current = root.getAttribute('data-theme');
+          applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+      });
+
+      /* RTL */
+      const DIR_KEY = 'merchantpay-dir';
+
+      function applyDir(dir) {
+        root.setAttribute('dir', dir);
+        root.setAttribute('lang', dir === 'rtl' ? 'ar' : 'en');
+        try { localStorage.setItem(DIR_KEY, dir); } catch (e) {}
+        document.querySelectorAll('[data-rtl-toggle]').forEach(function (btn) {
+          btn.setAttribute('aria-label', dir === 'rtl' ? 'Switch to left-to-right' : 'Switch to right-to-left');
+          btn.setAttribute('aria-pressed', String(dir === 'rtl'));
+        });
+      }
+
+      (function initDir() {
+        let saved = null;
+        try { saved = localStorage.getItem(DIR_KEY); } catch (e) {}
+        applyDir(saved === 'rtl' ? 'rtl' : 'ltr');
+      })();
+
+      document.querySelectorAll('[data-rtl-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const current = root.getAttribute('dir');
+          applyDir(current === 'rtl' ? 'ltr' : 'rtl');
+        });
+      });
+
+      /* Desktop dropdowns */
+      const desktopItems = document.querySelectorAll('.merchant-nav__item[data-dropdown]');
+
+      desktopItems.forEach(function (item) {
+        const trigger = item.querySelector('.merchant-nav__link');
+        let closeTimeout = null;
+
+        function openDropdown() {
+          clearTimeout(closeTimeout);
+          desktopItems.forEach(function (other) {
+            if (other !== item) {
+              other.classList.remove('merchant-nav__item--open');
+              const otherTrigger = other.querySelector('.merchant-nav__link');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+          item.classList.add('merchant-nav__item--open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown() {
+          item.classList.remove('merchant-nav__item--open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        function scheduleClose() { closeTimeout = setTimeout(closeDropdown, 130); }
+
+        item.addEventListener('mouseenter', function () {
+          if (window.matchMedia('(hover: hover)').matches) openDropdown();
+        });
+
+        item.addEventListener('mouseleave', function () {
+          if (window.matchMedia('(hover: hover)').matches) scheduleClose();
+        });
+
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (item.classList.contains('merchant-nav__item--open')) closeDropdown();
+          else openDropdown();
+        });
+
+        trigger.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { closeDropdown(); trigger.focus(); }
+        });
+
+        item.addEventListener('focusout', function (e) {
+          if (!item.contains(e.relatedTarget)) closeDropdown();
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.merchant-nav__item[data-dropdown]')) {
+          desktopItems.forEach(function (item) {
+            item.classList.remove('merchant-nav__item--open');
+            const trigger = item.querySelector('.merchant-nav__link');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          desktopItems.forEach(function (item) {
+            item.classList.remove('merchant-nav__item--open');
+            const trigger = item.querySelector('.merchant-nav__link');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      /* Close mobile panel with Escape key */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobilePanel && mobilePanel.classList.contains('is-open')) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+          mobilePanel.classList.remove('is-open');
+          document.body.style.overflow = '';
+          mobileToggle.focus();
+        }
+      });
+
+      /* Mobile menu */
+      const mobileToggle = document.querySelector('[data-mobile-toggle]');
+      const mobilePanel = document.getElementById('mobile-panel');
+      const navHeader = document.querySelector('.merchant-nav');
+
+      function closeMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+        if (mobilePanel) mobilePanel.classList.remove('is-open');
+        if (navHeader) navHeader.classList.remove('merchant-nav--open');
+        document.body.style.overflow = '';
+      }
+
+      function openMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'true');
+          mobileToggle.setAttribute('aria-label', 'Close navigation menu');
+        }
+        if (mobilePanel) mobilePanel.classList.add('is-open');
+        if (navHeader) navHeader.classList.add('merchant-nav--open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      if (mobileToggle && mobilePanel) {
+        mobileToggle.addEventListener('click', function () {
+          const isOpen = mobileToggle.getAttribute('aria-expanded') === 'true';
+          if (isOpen) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+
+        mobilePanel.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            closeMobileMenu();
+          });
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && mobilePanel.classList.contains('is-open')) {
+            closeMobileMenu();
+            mobileToggle.focus();
+          }
+        });
+      }
+
+      /* Mobile submenus */
+      const mobileDropdowns = document.querySelectorAll('[data-mobile-dropdown]');
+
+      mobileDropdowns.forEach(function (item) {
+        const trigger = item.querySelector('.merchant-nav__mobile-trigger');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', function () {
+          const isOpen = item.classList.contains('merchant-nav__mobile-item--open');
+          mobileDropdowns.forEach(function (other) {
+            if (other !== item) {
+              other.classList.remove('merchant-nav__mobile-item--open');
+              const otherTrigger = other.querySelector('.merchant-nav__mobile-trigger');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+          item.classList.toggle('merchant-nav__mobile-item--open', !isOpen);
+          trigger.setAttribute('aria-expanded', String(!isOpen));
+        });
+      });
+
+                  /* Reset mobile menu on desktop resize */
+      let resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          if (window.innerWidth > 1400) {
+            closeMobileMenu();
+          }
+        }, 150);
+      });
+
+    })();
+  </script>
+</body>
+</html>

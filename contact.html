@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover">
+  <title>Contact Us — MerchantPay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       PALETTE — Obsidian · Jade · Champagne (same as index.html)
+       ============================================================ */
+    :root,
+    [data-theme="dark"] {
+      --bg: #070b0d;
+      --bg-1: #0b1114;
+      --bg-2: #0f171b;
+      --bg-3: #131e23;
+      --hover: #18262c;
+      --line: #1d2f36;
+      --line-2: #294049;
+      --text: #eef5f6;
+      --text-2: #a9c1c7;
+      --text-3: #6f8a92;
+      --text-4: #4a626a;
+      --jade: #34e0c4;
+      --jade-2: #22c7ab;
+      --jade-soft: rgba(52, 224, 196, 0.12);
+      --jade-line: rgba(52, 224, 196, 0.28);
+      --champagne: #f2d0a4;
+      --champagne-soft: rgba(242, 208, 164, 0.12);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.55);
+      --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.65);
+      --header-bg: rgba(7, 11, 13, 0.72);
+      --glass: rgba(15, 23, 27, 0.6);
+      --glass-line: rgba(255, 255, 255, 0.06);
+      --grid: rgba(29, 47, 54, 0.6);
+      --glow: rgba(52, 224, 196, 0.2);
+            --hero-grad-a: #34e0c4;
+      --hero-grad-b: #f2d0a4;
+      --primary: var(--jade);
+      --ghost: var(--glass);
+      --featured: var(--champagne);
+      --solid: var(--bg-1);
+      --map-filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2);
+      --noise-opacity: 0.035;
+      --img-filter: none;
+    }
+
+    [data-theme="light"] {
+      --bg: #f4faf9;
+      --bg-1: #ffffff;
+      --bg-2: #ffffff;
+      --bg-3: #fbfdfd;
+      --hover: #e8f3f1;
+      --line: #d6e6e3;
+      --line-2: #b9d4cf;
+      --text: #061014;
+      --text-2: #2f4a51;
+      --text-3: #5c7880;
+      --text-4: #8ba6ac;
+      --jade: #0f9d8b;
+      --jade-2: #0b8575;
+      --jade-soft: rgba(15, 157, 139, 0.1);
+      --jade-line: rgba(15, 157, 139, 0.25);
+      --champagne: #b6792e;
+      --champagne-soft: rgba(182, 121, 46, 0.1);
+      --shadow-sm: 0 1px 2px rgba(6, 16, 20, 0.06);
+      --shadow-md: 0 12px 32px rgba(6, 16, 20, 0.1);
+      --shadow-lg: 0 30px 80px rgba(6, 16, 20, 0.14);
+      --header-bg: rgba(244, 250, 249, 0.75);
+      --glass: rgba(255, 255, 255, 0.65);
+      --glass-line: rgba(6, 16, 20, 0.06);
+      --grid: rgba(185, 212, 207, 0.55);
+      --glow: rgba(15, 157, 139, 0.12);
+            --hero-grad-a: #0f9d8b;
+      --hero-grad-b: #b6792e;
+      --primary: var(--jade);
+      --ghost: var(--glass);
+      --featured: var(--champagne);
+      --solid: var(--bg-1);
+      --map-filter: none;
+      --noise-opacity: 0.02;
+      --img-filter: none;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: var(--font-sans);
+      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 22px;
+      --r-xl: 32px;
+      --ease: 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      --container: 1300px;
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      transition: background-color 350ms ease, color 350ms ease;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: var(--noise-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      transition: opacity 350ms ease;
+    }
+
+    [dir="rtl"] body { text-align: right; }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
+
+    .skip-link {
+      position: absolute; top: -100px; left: 8px; padding: 10px 18px;
+      background: var(--jade); color: #03110e; border-radius: var(--r-sm);
+      font-size: 14px; font-weight: 700; z-index: 9999; transition: top 200ms;
+    }
+    .skip-link:focus { top: 8px; }
+
+    /* ============================================================
+       HEADER / NAVBAR (identical to index.html)
+       ============================================================ */
+    .merchant-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: var(--header-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--line);
+      transition: background-color 350ms ease, border-color 350ms ease;
+    }
+
+    .merchant-nav__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .brand-logo__mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      fill: var(--jade);
+      transition: fill var(--ease), transform var(--ease);
+    }
+
+    .brand-logo:hover .brand-logo__mark { transform: rotate(-8deg); }
+
+    .brand-logo__text-accent {
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--jade);
+    }
+
+    .merchant-nav__list {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 1px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .merchant-nav__item { position: relative; }
+
+    .merchant-nav__link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 9px 13px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: color var(--ease), background var(--ease);
+      line-height: 1.4;
+    }
+
+    /* Active navigation link styling */
+    .merchant-nav__link[aria-current="page"],
+    .merchant-nav__link.is-active,
+    .merchant-nav__mobile-link[aria-current="page"],
+    .merchant-nav__mobile-link.is-active,
+    .merchant-nav__mobile-trigger[aria-current="page"],
+    .merchant-nav__mobile-trigger.is-active {
+      color: var(--jade) !important;
+      font-weight: 600;
+    }
+
+    .merchant-nav__link[aria-current="page"] .merchant-nav__chevron,
+    .merchant-nav__link.is-active .merchant-nav__chevron,
+    .merchant-nav__mobile-trigger[aria-current="page"] svg,
+    .merchant-nav__mobile-trigger.is-active svg {
+      opacity: 1;
+      fill: var(--jade);
+    }
+
+    .merchant-nav__dropdown-link[aria-current="page"],
+    .merchant-nav__dropdown-link.is-active,
+    .merchant-nav__mobile-submenu a[aria-current="page"],
+    .merchant-nav__mobile-submenu a.is-active {
+      color: var(--jade) !important;
+      font-weight: 600;
+      background: var(--jade-soft);
+    }
+
+    .merchant-nav__link[aria-current="page"]:hover,
+    .merchant-nav__link.is-active:hover,
+    .merchant-nav__mobile-link[aria-current="page"]:hover,
+    .merchant-nav__mobile-link.is-active:hover,
+    .merchant-nav__mobile-trigger[aria-current="page"]:hover,
+    .merchant-nav__mobile-trigger.is-active:hover {
+      color: var(--jade) !important;
+    }
+
+    .merchant-nav__link:hover,
+    .merchant-nav__item--open > .merchant-nav__link {
+      color: var(--text);
+      background: var(--hover);
+    }
+
+    .merchant-nav__link:focus-visible,
+    .merchant-nav__action-link:focus-visible,
+    .merchant-nav__dropdown-link:focus-visible,
+    .merchant-nav__mobile-trigger:focus-visible,
+    .merchant-nav__mobile-link:focus-visible {
+      outline: 2px solid var(--jade);
+      outline-offset: 2px;
+    }
+
+    .merchant-nav__chevron {
+      width: 12px; height: 12px; flex-shrink: 0;
+      transition: transform var(--ease); opacity: 0.6; fill: currentColor;
+    }
+
+    .merchant-nav__item--open > .merchant-nav__link .merchant-nav__chevron {
+      transform: rotate(180deg); opacity: 1;
+    }
+
+    .merchant-nav__dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px) scale(0.98);
+      min-width: 230px;
+      background: var(--glass);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-line);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-lg);
+      padding: 7px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity var(--ease), transform var(--ease), visibility var(--ease);
+      z-index: 100;
+    }
+
+    [dir="rtl"] .merchant-nav__dropdown { transform: translateX(-50%) translateY(-8px) scale(0.98); }
+
+    .merchant-nav__item--open > .merchant-nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .merchant-nav__dropdown-link {
+      display: block;
+      padding: 11px 14px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 450;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color var(--ease), background var(--ease);
+      white-space: nowrap;
+    }
+
+    .merchant-nav__dropdown-link:hover {
+      color: var(--text);
+      background: var(--hover);
+    }
+
+    .merchant-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .merchant-nav__icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: var(--r-sm);
+      color: var(--text-2);
+      background: none;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: color var(--ease), background var(--ease), border-color var(--ease);
+      flex-shrink: 0;
+    }
+
+    .merchant-nav__icon-btn:hover {
+      color: var(--text);
+      background: var(--hover);
+      border-color: var(--line-2);
+    }
+
+    .merchant-nav__icon-btn svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor; stroke-width: 1.7;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .merchant-nav__icon-btn .icon-sun { display: none; }
+    [data-theme="light"] .merchant-nav__icon-btn .icon-sun { display: block; }
+    [data-theme="light"] .merchant-nav__icon-btn .icon-moon { display: none; }
+
+    .merchant-nav__rtl-label {
+      font-size: 12px; font-weight: 800; letter-spacing: 0.04em; font-family: var(--font-mono);
+    }
+
+    .merchant-nav__action-link {
+      display: flex;
+      align-items: center;
+      padding: 9px 20px;
+      border-radius: var(--r-sm);
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: color var(--ease), background var(--ease), border-color var(--ease), transform var(--ease);
+      white-space: nowrap;
+      line-height: 1.4;
+      border: 1px solid var(--line-2);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .merchant-nav__action-link:hover {
+      background: var(--jade);
+      color: #03110e;
+      border-color: var(--jade);
+      transform: translateY(-1px);
+    }
+
+    .merchant-nav__mobile-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      padding: 0;
+      border-radius: var(--r-sm);
+      color: var(--text-2);
+      background: none;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: background var(--ease), color var(--ease);
+      flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-toggle:hover { background: var(--hover); color: var(--text); }
+    .merchant-nav__mobile-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+    .merchant-nav__mobile-toggle .icon-close { display: none; }
+    .merchant-nav__mobile-toggle[aria-expanded="true"] .icon-menu { display: none; }
+    .merchant-nav__mobile-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+        .merchant-nav.merchant-nav--open {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: var(--bg) !important;
+    }
+
+    .merchant-nav__mobile-panel {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: calc(100vh - 72px);
+      height: calc(100dvh - 72px);
+      max-height: calc(100dvh - 72px);
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 24px clamp(20px, 4vw, 40px) 100px;
+      z-index: 9999;
+      flex-direction: column;
+      gap: 2px;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+    }
+
+    .merchant-nav__mobile-panel.is-open {
+      display: flex !important;
+    }
+
+    .merchant-nav__mobile-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    .merchant-nav__mobile-panel > * {
+      max-width: 680px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .merchant-nav__mobile-panel.is-open { display: flex; }
+
+    .merchant-nav__mobile-item { border-bottom: 1px solid var(--line); flex-shrink: 0; }
+    .merchant-nav__mobile-item:last-child { border-bottom: none; }
+
+    .merchant-nav__mobile-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 4px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: color var(--ease);
+      line-height: 1.4;
+    }
+
+    [dir="rtl"] .merchant-nav__mobile-trigger { text-align: right; }
+    .merchant-nav__mobile-trigger:hover { color: var(--jade); }
+
+    .merchant-nav__mobile-trigger svg {
+      width: 15px; height: 15px; fill: var(--text-3);
+      transition: transform var(--ease); flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-item--open .merchant-nav__mobile-trigger svg { transform: rotate(180deg); }
+
+    .merchant-nav__mobile-submenu {
+      display: none; flex-direction: column; padding: 0 0 14px 14px; gap: 0;
+    }
+
+    [dir="rtl"] .merchant-nav__mobile-submenu { padding: 0 14px 14px 0; }
+    .merchant-nav__mobile-item--open .merchant-nav__mobile-submenu { display: flex; }
+
+    .merchant-nav__mobile-submenu a {
+      display: block; padding: 11px 10px;
+      font-size: 15.5px; font-weight: 450;
+      color: var(--text-2); text-decoration: none;
+      border-radius: var(--r-sm);
+      transition: color var(--ease), background var(--ease);
+    }
+
+    .merchant-nav__mobile-submenu a:hover { color: var(--text); background: var(--hover); }
+
+    .merchant-nav__mobile-link {
+      display: block; padding: 16px 4px;
+      font-size: 17px; font-weight: 600;
+      color: var(--text); text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .merchant-nav__mobile-link:hover { color: var(--jade); }
+
+    .merchant-nav__mobile-tools {
+      display: flex; gap: 10px; margin-top: 18px; padding-top: 18px;
+      border-top: 1px solid var(--line); flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-tools .merchant-nav__icon-btn {
+      display: flex !important;
+      flex: 1; width: auto; height: 46px; gap: 8px;
+      font-size: 14px; font-weight: 600;
+    }
+
+    .merchant-nav__mobile-actions {
+      display: flex; flex-direction: column; gap: 10px; margin-top: 16px; flex-shrink: 0;
+    }
+
+    .merchant-nav__mobile-actions a {
+      display: flex; align-items: center; justify-content: center;
+      padding: 14px 18px; border-radius: var(--r-sm);
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      transition: background var(--ease), color var(--ease);
+      font-family: var(--font-sans);
+    }
+
+    .merchant-nav__mobile-actions .action-login {
+      color: var(--text-2); border: 1px solid var(--line-2);
+    }
+
+    .merchant-nav__mobile-actions .action-login:hover {
+      background: var(--hover); color: var(--text);
+    }
+
+    /* ============================================================
+       CONTACT PAGE — SHARED UTILITIES
+       ============================================================ */
+    .ct-section {
+      padding: 110px 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .ct-section:last-of-type { border-bottom: none; }
+    .ct-section--alt { background: var(--bg-1); }
+
+    .ct-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--jade);
+      margin-bottom: 20px;
+    }
+
+    .ct-eyebrow::before {
+      content: ""; width: 26px; height: 1.5px;
+      background: linear-gradient(90deg, var(--jade), transparent);
+      border-radius: 2px;
+    }
+
+    .ct-title {
+      font-size: clamp(32px, 4.2vw, 50px);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1.06;
+      color: var(--text);
+      max-width: 20ch;
+    }
+
+    .ct-title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ct-desc {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 60ch;
+    }
+
+    .ct-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 30px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--ease);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .ct-btn--solid {
+      background: var(--jade);
+      color: #03110e;
+      box-shadow: 0 12px 36px var(--jade-soft);
+    }
+
+    .ct-btn--solid:hover {
+      background: var(--jade-2);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 48px var(--jade-soft);
+    }
+
+    .ct-btn--glass {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--text);
+      border: 1px solid var(--line-2);
+    }
+
+    .ct-btn--glass:hover {
+      background: var(--hover);
+      border-color: var(--jade-line);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .ct-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 130px 0 110px;
+      background:
+        radial-gradient(ellipse 55% 45% at 50% -8%, var(--glow), transparent 65%),
+        var(--bg);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .ct-hero__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 55% 55% at 50% 30%, #000 0%, transparent 72%);
+      -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 30%, #000 0%, transparent 72%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .ct-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .ct-hero__pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .ct-hero__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--line-2);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-2);
+      letter-spacing: 0.01em;
+    }
+
+    .ct-hero__pill--accent {
+      color: var(--jade);
+      font-family: var(--font-mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 11.5px;
+    }
+
+    .ct-hero__pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--jade);
+      box-shadow: 0 0 0 3px var(--jade-soft);
+    }
+
+    .ct-hero__title {
+      font-size: clamp(40px, 6vw, 76px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.98;
+      color: var(--text);
+      margin: 0 auto 28px;
+      max-width: 16ch;
+    }
+
+    .ct-hero__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      display: inline-block;
+      padding-bottom: 0.06em;
+      background: linear-gradient(120deg, var(--jade) 20%, var(--champagne) 85%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ct-hero__lead {
+      font-size: clamp(17px, 2vw, 19px);
+      line-height: 1.65;
+      color: var(--text-2);
+      max-width: 56ch;
+      margin: 0 auto 40px;
+    }
+
+    /* ============================================================
+       SECTION 1 — CONTACT FORM & INFO
+       ============================================================ */
+    .ct-main-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Form Panel */
+    .ct-form-panel {
+      background: var(--bg-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      padding: 44px 40px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .ct-form__title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .ct-form__sub {
+      font-size: 15px;
+      color: var(--text-3);
+      margin-bottom: 32px;
+    }
+
+    .ct-form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .ct-form__group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .ct-form__row .ct-form__group {
+      margin-bottom: 0;
+    }
+
+    .ct-form__label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-2);
+      margin-bottom: 8px;
+    }
+
+    .ct-form__input-wrap {
+      position: relative;
+    }
+
+    .ct-form__icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--text-3);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+      transition: stroke var(--ease);
+    }
+
+    .ct-form__input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px 0 44px;
+      border-radius: var(--r-sm);
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 14.5px;
+      outline: none;
+      transition: border-color var(--ease), background var(--ease), box-shadow var(--ease);
+    }
+
+    .ct-form__input::placeholder { color: var(--text-4); }
+    .ct-form__input:hover { border-color: var(--line-2); }
+
+    .ct-form__input:focus {
+      border-color: var(--jade);
+      background: var(--bg-1);
+      box-shadow: 0 0 0 3px var(--jade-soft);
+    }
+
+    .ct-form__input-wrap:focus-within .ct-form__icon { stroke: var(--jade); }
+
+    .ct-form__textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: 14px;
+      border-radius: var(--r-sm);
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 14.5px;
+      outline: none;
+      resize: vertical;
+      transition: border-color var(--ease), background var(--ease), box-shadow var(--ease);
+    }
+
+    .ct-form__textarea::placeholder { color: var(--text-4); }
+    .ct-form__textarea:hover { border-color: var(--line-2); }
+
+    .ct-form__textarea:focus {
+      border-color: var(--jade);
+      background: var(--bg-1);
+      box-shadow: 0 0 0 3px var(--jade-soft);
+    }
+
+    .ct-form__submit {
+      width: 100%;
+      height: 50px;
+      border-radius: var(--r-sm);
+      background: var(--jade);
+      color: #03110e;
+      font-size: 15px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all var(--ease);
+      box-shadow: 0 12px 32px var(--jade-soft);
+      margin-top: 8px;
+    }
+
+    .ct-form__submit:hover {
+      background: var(--jade-2);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 48px var(--jade-soft);
+    }
+
+    .ct-form__submit svg {
+      width: 16px; height: 16px; fill: none; stroke: currentColor;
+      stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform var(--ease);
+    }
+
+    .ct-form__submit:hover svg { transform: translateX(3px); }
+
+    /* Info Panel */
+    .ct-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ct-info-card {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      padding: 26px 24px;
+      display: flex;
+      gap: 18px;
+      transition: all var(--ease);
+    }
+
+    .ct-info-card:hover {
+      border-color: var(--jade-line);
+      transform: translateY(-2px);
+      background: var(--bg-1);
+    }
+
+    .ct-info-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-md);
+      background: var(--jade-soft);
+      color: var(--jade);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ct-info-card__icon svg {
+      width: 20px; height: 20px; fill: none; stroke: currentColor;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .ct-info-card__title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .ct-info-card__desc {
+      font-size: 14px;
+      color: var(--text-3);
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .ct-info-card__link {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--jade);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ct-info-card__link:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+    /* ============================================================
+       SECTION 2 — PROFESSIONAL SPLIT MAP & LOCATIONS
+       ============================================================ */
+    .ct-locations-split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      background: var(--bg-1);
+      border: 1px solid var(--line-2);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Left side: Locations List */
+    .ct-locations-list {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--bg-1);
+      border-right: 1px solid var(--line);
+    }
+
+    [dir="rtl"] .ct-locations-list {
+      border-right: none;
+      border-left: 1px solid var(--line);
+    }
+
+    .ct-location-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+      transition: all var(--ease);
+    }
+
+    .ct-location-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .ct-location-item:first-child {
+      padding-top: 0;
+    }
+
+    .ct-location-item:hover .ct-location-item__city {
+      color: var(--jade);
+    }
+
+    .ct-location-item__city {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 4px;
+      transition: color var(--ease);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ct-location-item__badge {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--jade);
+      background: var(--jade-soft);
+      padding: 3px 8px;
+      border-radius: 100px;
+      border: 1px solid var(--jade-line);
+    }
+
+    .ct-location-item__address {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--text-3);
+      margin-bottom: 12px;
+    }
+
+    .ct-location-item__link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-2);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color var(--ease);
+    }
+
+    .ct-location-item__link:hover { color: var(--jade); }
+
+    .ct-location-item__link svg {
+      width: 14px; height: 14px; fill: none; stroke: currentColor;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Right side: Map */
+    .ct-map-panel {
+      position: relative;
+      min-height: 600px;
+      background: var(--bg-2);
+    }
+
+    .ct-map-panel iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      filter: var(--map-filter);
+      transition: filter 350ms ease;
+    }
+
+    /* Floating Map Overlay (HQ Info) */
+    .ct-map-overlay {
+      position: absolute;
+      top: 32px;
+      right: 32px;
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-line);
+      border-radius: var(--r-lg);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 10;
+      pointer-events: none; /* Let clicks pass through to map */
+    }
+
+    [dir="rtl"] .ct-map-overlay {
+      right: auto;
+      left: 32px;
+    }
+
+    .ct-map-overlay__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-sm);
+      background: var(--jade);
+      color: #03110e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ct-map-overlay__icon svg {
+      width: 20px; height: 20px; fill: none; stroke: currentColor;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .ct-map-overlay__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .ct-map-overlay__sub {
+      font-size: 12.5px;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    /* ============================================================
+       SECTION 3 — CTA
+       ============================================================ */
+    .ct-cta {
+      position: relative;
+      padding: 110px 0;
+      background:
+        radial-gradient(ellipse 55% 90% at 50% 120%, var(--jade-soft), transparent 70%),
+        var(--bg-1);
+      text-align: center;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .ct-cta__title {
+      font-size: clamp(34px, 4.8vw, 54px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      color: var(--text);
+      max-width: 20ch;
+      margin: 0 auto 20px;
+    }
+
+    .ct-cta__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      background: linear-gradient(120deg, var(--jade), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ct-cta__desc {
+      font-size: 18px;
+      color: var(--text-2);
+      max-width: 52ch;
+      margin: 0 auto 38px;
+      line-height: 1.65;
+    }
+
+    .ct-cta__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       FOOTER (identical)
+       ============================================================ */
+    .site-footer {
+      background: var(--bg-1);
+      border-top: 1px solid var(--line);
+      padding: 76px 0 0;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1.7fr repeat(4, 1fr);
+      gap: 44px;
+      padding-bottom: 64px;
+    }
+
+    .footer__brand { max-width: 320px; }
+    .footer__brand .brand-logo { margin-bottom: 20px; }
+
+    .footer__tagline {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--text-3);
+      margin-bottom: 26px;
+    }
+
+    .footer__social { display: flex; gap: 10px; }
+
+    .footer__social a {
+      width: 42px; height: 42px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-3);
+      transition: all var(--ease);
+    }
+
+    .footer__social a:hover {
+      color: var(--jade);
+      background: var(--hover);
+      border-color: var(--jade-line);
+      transform: translateY(-2px);
+    }
+
+    .footer__social svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .footer__col-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+
+    .footer__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .footer__list a {
+      font-size: 14.5px;
+      color: var(--text-3);
+      transition: color var(--ease);
+      line-height: 1.5;
+    }
+
+    .footer__list a:hover { color: var(--jade); }
+
+    .footer__bottom {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer__copy { font-size: 13.5px; color: var(--text-4); }
+    .footer__legal { display: flex; gap: 26px; flex-wrap: wrap; }
+    .footer__legal a { font-size: 13.5px; color: var(--text-4); transition: color var(--ease); }
+    .footer__legal a:hover { color: var(--jade); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    /* Tablet / iPad / iPad Pro / Mobile — All iPad models & orientations (screens <= 1400px) */
+    @media (max-width: 1400px) {
+      .merchant-nav__list { display: none !important; }
+      .merchant-nav__actions { display: none !important; }
+      .merchant-nav__mobile-toggle { display: flex !important; margin-left: auto; }
+      [dir="rtl"] .merchant-nav__mobile-toggle { margin-left: 0; margin-right: auto; }
+      .merchant-nav__inner { height: 72px; padding: 0 20px; }
+
+      .footer__grid { grid-template-columns: 1.4fr repeat(2, 1fr); row-gap: 50px; }
+      .ct-locations-split { grid-template-columns: 1fr; }
+      .ct-locations-list { border-right: none; border-bottom: 1px solid var(--line); padding: 32px; }
+      [dir="rtl"] .ct-locations-list { border-left: none; border-bottom: 1px solid var(--line); }
+      .ct-map-panel { min-height: 450px; }
+
+      .ct-hero { padding: 96px 0 88px; }
+      .ct-main-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .ct-section { padding: 84px 0; }
+      .ct-hero { padding: 80px 0 72px; }
+      .ct-form-panel { padding: 32px 24px; }
+      .ct-form__row { grid-template-columns: 1fr; }
+      
+      .ct-locations-list { padding: 24px; }
+      .ct-map-overlay { top: 16px; right: 16px; padding: 14px 18px; }
+      [dir="rtl"] .ct-map-overlay { right: auto; left: 16px; }
+      .ct-map-overlay__icon { width: 32px; height: 32px; }
+      .ct-map-overlay__title { font-size: 13px; }
+      .ct-map-overlay__sub { font-size: 11.5px; }
+
+      .footer__grid { grid-template-columns: 1fr 1fr; gap: 42px; padding-bottom: 52px; }
+      .footer__brand { grid-column: 1 / -1; max-width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .merchant-nav__inner { height: 66px; padding: 0 16px; gap: 8px; }
+      .merchant-nav__mobile-panel { top: 66px; height: calc(100vh - 66px); height: calc(100dvh - 66px); max-height: calc(100dvh - 66px); padding: 16px 20px 80px; }
+      .brand-logo { font-size: 19px; gap: 8px; }
+      .brand-logo__mark { width: 25px; height: 25px; }
+      .merchant-nav__actions { gap: 6px; }
+      .merchant-nav__icon-btn { width: 38px; height: 38px; }
+      .merchant-nav__mobile-toggle { width: 38px; height: 38px; }
+
+      .container { padding: 0 18px; }
+      .ct-hero__inner { padding: 0 18px; }
+      .ct-hero__pills { gap: 8px; margin-bottom: 24px; }
+      .ct-hero__pill { font-size: 11.5px; padding: 6px 13px; }
+
+      .ct-cta { padding: 84px 0; }
+      .ct-cta__actions { flex-direction: column; width: 100%; }
+      .ct-cta__actions .ct-btn { width: 100%; }
+
+      .footer__grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+
+    @media (max-width: 400px) {
+      .merchant-nav__icon-btn--rtl { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER / NAVBAR (identical)
+       ============================================================ -->
+  <header class="merchant-nav" role="banner">
+    <nav class="merchant-nav__inner" aria-label="Main navigation">
+
+      <a href="index.html" class="brand-logo" aria-label="MerchantPay home">
+        <svg class="brand-logo__mark" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M12.927 16.371a1.47 1.47 0 0 0 .061 2.027l68.595 68.594c.555.555 1.446.59 2.026.062 10.058-9.152 16.372-22.348 16.372-37.018C99.98 22.402 77.579 0 49.945 0c-14.67 0-27.866 6.313-37.018 16.371M4.353 29.39a1.47 1.47 0 0 0 .309 1.648L68.943 95.32c.434.434 1.09.562 1.648.308a50 50 0 0 0 4.335-2.227c.834-.482.962-1.62.28-2.3L8.882 24.773c-.68-.68-1.818-.553-2.3.281a50 50 0 0 0-2.228 4.334m-3.9 18.407a1.48 1.48 0 0 1-.432-1.14q.2-2.986.74-5.866c.215-1.15 1.62-1.55 2.448-.722l56.703 56.704c.828.827.429 2.233-.722 2.448a50 50 0 0 1-5.865.74 1.48 1.48 0 0 1-1.14-.433zm3.48 13.963c-1.033-1.033-2.7-.143-2.322 1.268C6.221 80.22 19.761 93.76 36.954 98.37c1.41.379 2.3-1.289 1.268-2.322z"/>
+        </svg>
+        <span>Merchant<span class="brand-logo__text-accent">Pay</span></span>
+      </a>
+
+      <ul class="merchant-nav__list" role="menubar">
+
+        <li class="merchant-nav__item" role="none" data-dropdown>
+          <button class="merchant-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-home">
+            Home
+            <svg class="merchant-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__dropdown" id="dropdown-home" role="menu">
+            <a href="index.html" class="merchant-nav__dropdown-link" role="menuitem">Home 1</a>
+            <a href="home-2.html" class="merchant-nav__dropdown-link" role="menuitem">Home 2</a>
+          </div>
+        </li>
+
+        <li class="merchant-nav__item" role="none"><a href="about.html" class="merchant-nav__link" role="menuitem">About Us</a></li>
+        <li class="merchant-nav__item" role="none"><a href="payment-solutions.html" class="merchant-nav__link" role="menuitem">Payment Solutions</a></li>
+        <li class="merchant-nav__item" role="none"><a href="business-types.html" class="merchant-nav__link" role="menuitem">Business Types</a></li>
+        <li class="merchant-nav__item" role="none"><a href="pricing.html" class="merchant-nav__link" role="menuitem">Pricing</a></li>
+        <li class="merchant-nav__item" role="none"><a href="security.html" class="merchant-nav__link" role="menuitem">Security</a></li>
+        <li class="merchant-nav__item" role="none"><a href="contact.html" class="merchant-nav__link is-active" role="menuitem" aria-current="page">Contact</a></li>
+
+        <li class="merchant-nav__item" role="none" data-dropdown>
+          <button class="merchant-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-dashboard">
+            Dashboard
+            <svg class="merchant-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__dropdown" id="dropdown-dashboard" role="menu">
+            <a href="user-dashboard.html" class="merchant-nav__dropdown-link" role="menuitem">User Dashboard</a>
+            <a href="admin-dashboard.html" class="merchant-nav__dropdown-link" role="menuitem">Admin Dashboard</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="merchant-nav__actions">
+        <button class="merchant-nav__icon-btn" data-theme-toggle aria-label="Toggle dark and light mode" title="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+
+        <button class="merchant-nav__icon-btn merchant-nav__icon-btn--rtl" data-rtl-toggle aria-label="Toggle right-to-left direction" title="Toggle RTL">
+          <span class="merchant-nav__rtl-label">RTL</span>
+        </button>
+
+        <a href="login.html" class="merchant-nav__action-link">Login</a>
+      </div>
+
+      <button class="merchant-nav__mobile-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-panel" data-mobile-toggle>
+        <svg class="icon-menu" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1" y="3.5" width="14" height="1.5" rx="0.75"/>
+          <rect x="1" y="7.25" width="14" height="1.5" rx="0.75"/>
+          <rect x="1" y="11" width="14" height="1.5" rx="0.75"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 1 1-1.06-1.06L6.94 8 3.47 4.53a.75.75 0 0 1 0-1.06Z"/>
+        </svg>
+      </button>
+
+    </nav>
+
+    <div class="merchant-nav__mobile-panel" id="mobile-panel" role="dialog" aria-label="Mobile navigation">
+      <ul style="list-style:none;padding:0;margin:0;">
+
+        <li class="merchant-nav__mobile-item" data-mobile-dropdown>
+          <button class="merchant-nav__mobile-trigger" aria-expanded="false">
+            Home
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__mobile-submenu">
+            <a href="index.html">Home 1</a>
+            <a href="home-2.html">Home 2</a>
+          </div>
+        </li>
+
+        <li class="merchant-nav__mobile-item"><a href="about.html" class="merchant-nav__mobile-link">About Us</a></li>
+        <li class="merchant-nav__mobile-item"><a href="payment-solutions.html" class="merchant-nav__mobile-link">Payment Solutions</a></li>
+        <li class="merchant-nav__mobile-item"><a href="business-types.html" class="merchant-nav__mobile-link">Business Types</a></li>
+        <li class="merchant-nav__mobile-item"><a href="pricing.html" class="merchant-nav__mobile-link">Pricing</a></li>
+        <li class="merchant-nav__mobile-item"><a href="security.html" class="merchant-nav__mobile-link">Security</a></li>
+        <li class="merchant-nav__mobile-item"><a href="contact.html" class="merchant-nav__mobile-link is-active" aria-current="page">Contact</a></li>
+
+        <li class="merchant-nav__mobile-item" data-mobile-dropdown>
+          <button class="merchant-nav__mobile-trigger" aria-expanded="false">
+            Dashboard
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.53 5.47a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.054.007l4-3.903a.75.75 0 0 0-1.048-1.073l-3.47 3.385L4.53 5.47Z"/></svg>
+          </button>
+          <div class="merchant-nav__mobile-submenu">
+            <a href="user-dashboard.html">User Dashboard</a>
+            <a href="admin-dashboard.html">Admin Dashboard</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="merchant-nav__mobile-tools">
+        <button class="merchant-nav__icon-btn" data-theme-toggle aria-label="Toggle dark and light mode">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <span>Theme</span>
+        </button>
+        <button class="merchant-nav__icon-btn" data-rtl-toggle aria-label="Toggle right-to-left direction">
+          <span class="merchant-nav__rtl-label">RTL</span>
+          <span>Direction</span>
+        </button>
+      </div>
+
+      <div class="merchant-nav__mobile-actions">
+        <a href="login.html" class="action-login">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main id="main-content">
+
+    <!-- ============ HERO ============ -->
+    <section class="ct-hero" aria-labelledby="ct-hero-title">
+      <div class="ct-hero__grid" aria-hidden="true"></div>
+      <div class="ct-hero__inner">
+        <div class="ct-hero__pills">
+          <span class="ct-hero__pill ct-hero__pill--accent">
+            <span class="ct-hero__pill-dot" aria-hidden="true"></span>
+            Contact Us
+          </span>
+          <span class="ct-hero__pill">Support · Sales · Partnerships</span>
+        </div>
+
+        <h1 class="ct-hero__title" id="ct-hero-title">
+          We'd love to <em>hear from you.</em>
+        </h1>
+
+        <p class="ct-hero__lead">
+          Whether you're exploring MerchantPay for the first time or you're a 
+          long-time customer with a tricky edge case — our team is here. 
+          No bots, no scripts, just engineers and payments people.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 1 — CONTACT FORM & INFO ============ -->
+    <section class="ct-section" aria-labelledby="ct-form-title">
+      <div class="container">
+        <div class="ct-main-grid">
+
+          <!-- Form Panel -->
+          <div class="ct-form-panel">
+            <h2 class="ct-form__title" id="ct-form-title">Send us a message</h2>
+            <p class="ct-form__sub">We typically reply within 2 hours during business days.</p>
+
+            <form id="contact-form" novalidate>
+              
+              <div class="ct-form__row">
+                <div class="ct-form__group">
+                  <label for="ct-first-name" class="ct-form__label">First name</label>
+                  <div class="ct-form__input-wrap">
+                    <input
+                      type="text"
+                      id="ct-first-name"
+                      class="ct-form__input"
+                      placeholder="Daniel"
+                      autocomplete="given-name"
+                      required
+                    >
+                    <svg class="ct-form__icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="12" cy="8" r="4"/>
+                      <path d="M4 21c0-4 4-7 8-7s8 3 8 7"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="ct-form__group">
+                  <label for="ct-last-name" class="ct-form__label">Last name</label>
+                  <div class="ct-form__input-wrap">
+                    <input
+                      type="text"
+                      id="ct-last-name"
+                      class="ct-form__input"
+                      placeholder="Kim"
+                      autocomplete="family-name"
+                      required
+                    >
+                    <svg class="ct-form__icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="12" cy="8" r="4"/>
+                      <path d="M4 21c0-4 4-7 8-7s8 3 8 7"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ct-form__group">
+                <label for="ct-email" class="ct-form__label">Work email</label>
+                <div class="ct-form__input-wrap">
+                  <input
+                    type="email"
+                    id="ct-email"
+                    class="ct-form__input"
+                    placeholder="you@company.com"
+                    autocomplete="email"
+                    required
+                  >
+                  <svg class="ct-form__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="m2 7 10 7 10-7"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="ct-form__group">
+                <label for="ct-message" class="ct-form__label">Message</label>
+                <textarea
+                  id="ct-message"
+                  class="ct-form__textarea"
+                  placeholder="Tell us about your project, your volume, or your question…"
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="ct-form__submit">
+                Send message
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+              </button>
+
+            </form>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="ct-info-list">
+
+            <a href="mailto:hello@merchantpay.com" class="ct-info-card">
+              <div class="ct-info-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m2 7 10 7 10-7"/>
+                </svg>
+              </div>
+              <div>
+                <div class="ct-info-card__title">Email us</div>
+                <div class="ct-info-card__desc">For general inquiries and support</div>
+                <span class="ct-info-card__link">hello@merchantpay.com →</span>
+              </div>
+            </a>
+
+            <a href="tel:+14155550199" class="ct-info-card">
+              <div class="ct-info-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="ct-info-card__title">Call us</div>
+                <div class="ct-info-card__desc">Mon–Fri, 9am–6pm PT</div>
+                <span class="ct-info-card__link">+1 (415) 555-0199 →</span>
+              </div>
+            </a>
+
+            <a href="#contact-form" class="ct-info-card">
+              <div class="ct-info-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/>
+                  <path d="M12 17h.01"/>
+                </svg>
+              </div>
+              <div>
+                <div class="ct-info-card__title">Help center</div>
+                <div class="ct-info-card__desc">Browse docs and guides</div>
+                <span class="ct-info-card__link">support.html →</span>
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — PROFESSIONAL SPLIT MAP & LOCATIONS ============ -->
+    <section class="ct-section ct-section--alt" aria-labelledby="ct-offices-title">
+      <div class="container">
+        <div class="ct-offices__head" style="text-align:center; max-width:700px; margin: 0 auto 60px;">
+          <div class="ct-eyebrow" style="justify-content:center;">Global hubs</div>
+          <h2 class="ct-title" id="ct-offices-title" style="margin: 0 auto;">
+            Find us in <em>real life.</em>
+          </h2>
+          <p class="ct-desc" style="margin: 20px auto 0;">
+            We're a globally distributed team, but we have physical hubs in a few 
+            cities where our teams gather to build and collaborate.
+          </p>
+        </div>
+
+        <div class="ct-locations-split">
+          
+          <!-- Left Side: Locations List -->
+          <div class="ct-locations-list">
+            
+            <div class="ct-location-item">
+              <div class="ct-location-item__city">
+                San Francisco
+                <span class="ct-location-item__badge">HQ</span>
+              </div>
+              <div class="ct-location-item__address">
+                548 Market St, Suite 42000<br>
+                San Francisco, CA 94104<br>
+                United States
+              </div>
+              <a href="https://maps.google.com/?q=548+Market+St+San+Francisco+CA+94104" target="_blank" rel="noopener noreferrer" class="ct-location-item__link">
+                Get directions
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+
+            <div class="ct-location-item">
+              <div class="ct-location-item__city">London</div>
+              <div class="ct-location-item__address">
+                1 Fore St Ave, 3rd Floor<br>
+                London EC2Y 9DT<br>
+                United Kingdom
+              </div>
+              <a href="https://maps.google.com/?q=1+Fore+St+Ave+London+EC2Y+9DT" target="_blank" rel="noopener noreferrer" class="ct-location-item__link">
+                Get directions
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+
+            <div class="ct-location-item">
+              <div class="ct-location-item__city">Singapore</div>
+              <div class="ct-location-item__address">
+                1 Raffles Place, #20-01<br>
+                One Raffles Place Tower 1<br>
+                Singapore 048616
+              </div>
+              <a href="https://maps.google.com/?q=1+Raffles+Place+Singapore+048616" target="_blank" rel="noopener noreferrer" class="ct-location-item__link">
+                Get directions
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Right Side: Map -->
+          <div class="ct-map-panel">
+            <!-- Floating map overlay info -->
+            
+            <!-- Embedded Google Map (San Francisco HQ) -->
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.154847882591!2d-122.40137168468245!3d37.78997517975812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808580628b354e33%3A0xe6c7e9d8d4b6b8e6!2s548%20Market%20St%2C%20San%20Francisco%2C%20CA%2094104!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus" 
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="MerchantPay Headquarters Location">
+            </iframe>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — CTA ============ -->
+    <section class="ct-cta" aria-labelledby="ct-cta-title">
+      <div class="container">
+        <h2 class="ct-cta__title" id="ct-cta-title">
+          Prefer to just <em>build it yourself?</em>
+        </h2>
+        <p class="ct-cta__desc">
+          Skip the sales call. Get a sandbox account in 30 seconds, explore the 
+          full API, and see if we fit your stack. No commitment required.
+        </p>
+        <div class="ct-cta__actions">
+          <a href="signup.html" class="ct-btn ct-btn--solid">Create sandbox account</a>
+          <a href="user-dashboard.html#view-developers" class="ct-btn ct-btn--glass">View API docs →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (identical)
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a href="index.html" class="brand-logo" aria-label="MerchantPay home">
+            <svg class="brand-logo__mark" viewBox="0 0 100 100" aria-hidden="true">
+              <path d="M12.927 16.371a1.47 1.47 0 0 0 .061 2.027l68.595 68.594c.555.555 1.446.59 2.026.062 10.058-9.152 16.372-22.348 16.372-37.018C99.98 22.402 77.579 0 49.945 0c-14.67 0-27.866 6.313-37.018 16.371M4.353 29.39a1.47 1.47 0 0 0 .309 1.648L68.943 95.32c.434.434 1.09.562 1.648.308a50 50 0 0 0 4.335-2.227c.834-.482.962-1.62.28-2.3L8.882 24.773c-.68-.68-1.818-.553-2.3.281a50 50 0 0 0-2.228 4.334m-3.9 18.407a1.48 1.48 0 0 1-.432-1.14q.2-2.986.74-5.866c.215-1.15 1.62-1.55 2.448-.722l56.703 56.704c.828.827.429 2.233-.722 2.448a50 50 0 0 1-5.865.74 1.48 1.48 0 0 1-1.14-.433zm3.48 13.963c-1.033-1.033-2.7-.143-2.322 1.268C6.221 80.22 19.761 93.76 36.954 98.37c1.41.379 2.3-1.289 1.268-2.322z"/>
+            </svg>
+            <span>Merchant<span class="brand-logo__text-accent">Pay</span></span>
+          </a>
+          <p class="footer__tagline">
+            The modern payment platform for businesses that want to move fast, stay secure,
+            and keep more of what they earn.
+          </p>
+          <div class="footer__social">
+            <a href="https://x.com" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.3l-4.9-6.4L6.2 22H3l7.3-8.4L2.4 2h6.4l4.4 5.9Zm-1.1 18h1.7L7.3 3.8H5.5Z"/></svg>
+            </a>
+            <a href="https://github.com" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.7.2 2.9.1 3.2.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+            </a>
+            <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.2 2.4 4.2 5.4v6.2ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.4H3.5V9h3.6v11.4Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Product</h4>
+          <ul class="footer__list">
+            <li><a href="payment-solutions.html">Payment Solutions</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="security.html">Security</a></li>
+            <li><a href="business-types.html">Business Types</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Company</h4>
+          <ul class="footer__list">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="press.html">Press</a></li>
+            <li><a href="partners.html">Partners</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Dashboards</h4>
+          <ul class="footer__list">
+            <li><a href="user-dashboard.html">User Dashboard</a></li>
+            <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Create account</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__col-title">Resources</h4>
+          <ul class="footer__list">
+            <li><a href="user-dashboard.html#view-developers">Documentation</a></li>
+            <li><a href="developers.html">Developers</a></li>
+            <li><a href="status.html">System Status</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="#contact-form">Support</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 MerchantPay, Inc. All rights reserved.</p>
+        <div class="footer__legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="legal.html">Legal</a>
+          <a href="cookies.html">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* Active Navigation Highlighting */
+      function setActiveNav() {
+        const nav = document.querySelector('.merchant-nav');
+        if (!nav) return;
+
+        let rawPath = window.location.pathname || '';
+        if (rawPath.endsWith('/') && rawPath.length > 1) {
+          rawPath = rawPath.slice(0, -1);
+        }
+        let page = rawPath.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+        if (!page || page === '' || page === 'index') {
+          page = 'index.html';
+        } else if (!page.includes('.')) {
+          page = page + '.html';
+        }
+
+        const validPages = [
+          'index.html', 'home-2.html', 'about.html', 'payment-solutions.html',
+          'business-types.html', 'pricing.html', 'security.html', 'contact.html',
+          'user-dashboard.html', 'admin-dashboard.html'
+        ];
+        if (!validPages.includes(page)) return;
+
+        // Clear previous active states
+        nav.querySelectorAll('.merchant-nav__link, .merchant-nav__dropdown-link, .merchant-nav__mobile-link, .merchant-nav__mobile-trigger, .merchant-nav__mobile-submenu a').forEach(function (el) {
+          el.removeAttribute('aria-current');
+          el.classList.remove('is-active');
+        });
+
+        // 1. Desktop Links
+        nav.querySelectorAll('.merchant-nav__list a[href]').forEach(function (link) {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          const hrefClean = href.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+          if (hrefClean === page) {
+            link.setAttribute('aria-current', 'page');
+            link.classList.add('is-active');
+
+            const parentDropdown = link.closest('.merchant-nav__dropdown');
+            if (parentDropdown) {
+              const trigger = parentDropdown.closest('.merchant-nav__item')?.querySelector('.merchant-nav__link');
+              if (trigger) {
+                trigger.setAttribute('aria-current', 'page');
+                trigger.classList.add('is-active');
+              }
+            }
+          }
+        });
+
+        // 2. Mobile Links
+        nav.querySelectorAll('.merchant-nav__mobile-panel a[href]').forEach(function (link) {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          const hrefClean = href.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+          if (hrefClean === page) {
+            link.setAttribute('aria-current', 'page');
+            link.classList.add('is-active');
+
+            const parentSubmenu = link.closest('.merchant-nav__mobile-submenu');
+            if (parentSubmenu) {
+              const trigger = parentSubmenu.closest('.merchant-nav__mobile-item')?.querySelector('.merchant-nav__mobile-trigger');
+              if (trigger) {
+                trigger.setAttribute('aria-current', 'page');
+                trigger.classList.add('is-active');
+              }
+            }
+          }
+        });
+      }
+      setActiveNav();
+
+      /* Theme */
+      const root = document.documentElement;
+      const THEME_KEY = 'merchantpay-theme';
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        });
+      }
+
+      (function initTheme() {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+        if (saved === 'dark' || saved === 'light') {
+          applyTheme(saved);
+        } else {
+          const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          applyTheme(prefersLight ? 'light' : 'dark');
+        }
+      })();
+
+      document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const current = root.getAttribute('data-theme');
+          applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+      });
+
+      /* RTL */
+      const DIR_KEY = 'merchantpay-dir';
+
+      function applyDir(dir) {
+        root.setAttribute('dir', dir);
+        root.setAttribute('lang', dir === 'rtl' ? 'ar' : 'en');
+        try { localStorage.setItem(DIR_KEY, dir); } catch (e) {}
+        document.querySelectorAll('[data-rtl-toggle]').forEach(function (btn) {
+          btn.setAttribute('aria-label', dir === 'rtl' ? 'Switch to left-to-right' : 'Switch to right-to-left');
+          btn.setAttribute('aria-pressed', String(dir === 'rtl'));
+        });
+      }
+
+      (function initDir() {
+        let saved = null;
+        try { saved = localStorage.getItem(DIR_KEY); } catch (e) {}
+        applyDir(saved === 'rtl' ? 'rtl' : 'ltr');
+      })();
+
+      document.querySelectorAll('[data-rtl-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const current = root.getAttribute('dir');
+          applyDir(current === 'rtl' ? 'ltr' : 'rtl');
+        });
+      });
+
+      /* Desktop dropdowns */
+      const desktopItems = document.querySelectorAll('.merchant-nav__item[data-dropdown]');
+
+      desktopItems.forEach(function (item) {
+        const trigger = item.querySelector('.merchant-nav__link');
+        let closeTimeout = null;
+
+        function openDropdown() {
+          clearTimeout(closeTimeout);
+          desktopItems.forEach(function (other) {
+            if (other !== item) {
+              other.classList.remove('merchant-nav__item--open');
+              const otherTrigger = other.querySelector('.merchant-nav__link');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+          item.classList.add('merchant-nav__item--open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown() {
+          item.classList.remove('merchant-nav__item--open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        function scheduleClose() { closeTimeout = setTimeout(closeDropdown, 130); }
+
+        item.addEventListener('mouseenter', function () {
+          if (window.matchMedia('(hover: hover)').matches) openDropdown();
+        });
+
+        item.addEventListener('mouseleave', function () {
+          if (window.matchMedia('(hover: hover)').matches) scheduleClose();
+        });
+
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (item.classList.contains('merchant-nav__item--open')) closeDropdown();
+          else openDropdown();
+        });
+
+        trigger.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { closeDropdown(); trigger.focus(); }
+        });
+
+        item.addEventListener('focusout', function (e) {
+          if (!item.contains(e.relatedTarget)) closeDropdown();
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.merchant-nav__item[data-dropdown]')) {
+          desktopItems.forEach(function (item) {
+            item.classList.remove('merchant-nav__item--open');
+            const trigger = item.querySelector('.merchant-nav__link');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          desktopItems.forEach(function (item) {
+            item.classList.remove('merchant-nav__item--open');
+            const trigger = item.querySelector('.merchant-nav__link');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      /* Close mobile panel with Escape key */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobilePanel && mobilePanel.classList.contains('is-open')) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+          mobilePanel.classList.remove('is-open');
+          document.body.style.overflow = '';
+          mobileToggle.focus();
+        }
+      });
+
+      /* Mobile menu */
+      const mobileToggle = document.querySelector('[data-mobile-toggle]');
+      const mobilePanel = document.getElementById('mobile-panel');
+      const navHeader = document.querySelector('.merchant-nav');
+
+      function closeMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+        if (mobilePanel) mobilePanel.classList.remove('is-open');
+        if (navHeader) navHeader.classList.remove('merchant-nav--open');
+        document.body.style.overflow = '';
+      }
+
+      function openMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'true');
+          mobileToggle.setAttribute('aria-label', 'Close navigation menu');
+        }
+        if (mobilePanel) mobilePanel.classList.add('is-open');
+        if (navHeader) navHeader.classList.add('merchant-nav--open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      if (mobileToggle && mobilePanel) {
+        mobileToggle.addEventListener('click', function () {
+          const isOpen = mobileToggle.getAttribute('aria-expanded') === 'true';
+          if (isOpen) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+
+        mobilePanel.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            closeMobileMenu();
+          });
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && mobilePanel.classList.contains('is-open')) {
+            closeMobileMenu();
+            mobileToggle.focus();
+          }
+        });
+      }
+
+      /* Mobile submenus */
+      const mobileDropdowns = document.querySelectorAll('[data-mobile-dropdown]');
+
+      mobileDropdowns.forEach(function (item) {
+        const trigger = item.querySelector('.merchant-nav__mobile-trigger');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', function () {
+          const isOpen = item.classList.contains('merchant-nav__mobile-item--open');
+          mobileDropdowns.forEach(function (other) {
+            if (other !== item) {
+              other.classList.remove('merchant-nav__mobile-item--open');
+              const otherTrigger = other.querySelector('.merchant-nav__mobile-trigger');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+          item.classList.toggle('merchant-nav__mobile-item--open', !isOpen);
+          trigger.setAttribute('aria-expanded', String(!isOpen));
+        });
+      });
+
+                  /* Reset mobile menu on desktop resize */
+      let resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          if (window.innerWidth > 1400) {
+            closeMobileMenu();
+          }
+        }, 150);
+      });
+
+      /* Contact form submission */
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const submitBtn = contactForm.querySelector('.ct-form__submit');
+          const originalHTML = submitBtn.innerHTML;
+          
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = 'Sending…';
+          
+          setTimeout(function () {
+            submitBtn.innerHTML = '✓ Message sent!';
+            submitBtn.style.background = 'var(--jade-2)';
+            
+            setTimeout(function () {
+              submitBtn.innerHTML = originalHTML;
+              submitBtn.style.background = '';
+              submitBtn.disabled = false;
+              contactForm.reset();
+            }, 2000);
+          }, 1000);
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
